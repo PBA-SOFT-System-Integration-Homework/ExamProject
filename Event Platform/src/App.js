@@ -33,7 +33,6 @@ class App extends React.Component {
         }
     ]
     }
-    this.handleInputChange.bind(this);
   }
 
   handleInputChange = (event) => {
@@ -47,7 +46,7 @@ class App extends React.Component {
     let password = this.state.password
 
     users.forEach(user => {
-      if (username = user.username && password == user.password) {
+      if (username == user.username && password == user.password) {
         this.setState({loggedIn: true, role: user.role})
       }
     })
@@ -70,18 +69,24 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     if (!this.state.loggedIn) {
       return (
         <div>
           <SignIn handleInputChange={this.handleInputChange} handleLogin={this.handleLogin}/>
           {JSON.stringify(users)}
-          {JSON.stringify(this.state)}
         </div>
         )
-    } else {
-      return (
-        <Events role={this.state.role} events={this.state.events} addEvent={this.addEvent}/>
+      } else {
+        return (
+          <div>
+             {JSON.stringify(this.state)}
+             <Events role={this.state.role}
+              events={this.state.events}
+              addEvent={this.addEvent}
+              handleInputChange={this.handleInputChange}
+              state={this.state}
+              />
+          </div>
       )
     }
     

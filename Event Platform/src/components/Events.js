@@ -52,8 +52,6 @@ export default function Album(props) {
         <React.Fragment>
             <CssBaseline />
             <AppBar position="relative">
-
-
                 {JSON.stringify(props.role)}
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
@@ -75,6 +73,7 @@ export default function Album(props) {
                       autoComplete="name"
                       autoFocus
                       onChange={props.handleInputChange}
+                      value={props.state.addEventName}
                     />
                     <TextField
                       variant="outlined"
@@ -87,6 +86,7 @@ export default function Album(props) {
                       id="addEventDescription"
                       autoComplete="description"
                       onChange={props.handleInputChange}
+                      value={props.state.addEventDescription}
                     />
                     <TextField
                       variant="outlined"
@@ -99,6 +99,7 @@ export default function Album(props) {
                       id="addEventDate"
                       autoComplete="date"
                       onChange={props.handleInputChange}
+                      value={props.state.addEventDate}
                     />
                     <Button
                       fullWidth
@@ -126,8 +127,8 @@ export default function Album(props) {
                 <Container className={classes.cardGrid} maxWidth="md">
                     {/* End hero unit */}
                     <Grid container spacing={4}>
-                        {props.events.map(event => (
-                            <Grid item key={event} xs={12} sm={6} md={4}>
+                        {props.events.map((event, idx) => (
+                            <Grid item key={idx} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
                                     <CardMedia
                                         className={classes.cardMedia}
