@@ -1,6 +1,5 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,49 +8,16 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+import useStyles from '../styles/Events'
 
-const useStyles = makeStyles(theme => ({
-    icon: {
-        marginRight: theme.spacing(2),
-    },
-    heroContent: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(8, 0, 6),
-    },
-    heroButtons: {
-        marginTop: theme.spacing(4),
-    },
-    cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-    },
-    card: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    cardMedia: {
-        paddingTop: '56.25%', // 16:9
-    },
-    cardContent: {
-        flexGrow: 1,
-    },
-    footer: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(6),
-    },
-}));
-
-export default function Album(props) {
+export default function Event(props) {
     const classes = useStyles();
 
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="relative">
+            <AppBar position="relative"className={classes.topBar}>
                 {JSON.stringify(props.role)}
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
@@ -60,59 +26,6 @@ export default function Album(props) {
                 </Toolbar>
             </AppBar>
             <main>
-            {props.role == "admin" ? (
-                    <form className={classes.form} >
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="addEventName"
-                      label="Name of event"
-                      name="name"
-                      autoComplete="name"
-                      autoFocus
-                      onChange={props.handleInputChange}
-                      value={props.state.addEventName}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="description"
-                      label="Description"
-                      type="description"
-                      id="addEventDescription"
-                      autoComplete="description"
-                      onChange={props.handleInputChange}
-                      value={props.state.addEventDescription}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="date"
-                      label="Date for event"
-                      type="description"
-                      id="addEventDate"
-                      autoComplete="date"
-                      onChange={props.handleInputChange}
-                      value={props.state.addEventDate}
-                    />
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      onClick={props.addEvent}
-                    >
-                      Add Event
-                    </Button>
-                  </form>
-                ) : (
-                    ""
-                )}
                 {/* Hero unit */}
                 <div className={classes.heroContent}>
                     <Container maxWidth="sm">
@@ -140,15 +53,26 @@ export default function Album(props) {
                                             {event.name}
                                         </Typography>
                                         <Typography>
-                                        {event.describtion}
+                                        {event.description}
                                     </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small" color="primary">
+
+                                        <button type="button" 
+                                            class="btn btn-primary" 
+                                            data-toggle="modal"
+                                            id={idx} 
+                                            data-target="#exampleModalLong"
+                                            onClick={props.handleEventClick}
+                                            >
                                             View
-                                        </Button>
+                                        </button>
+
                                         <Typography>
                                         {event.date}
+                                    </Typography>
+                                    <Typography>
+                                        | {event.amountOfPeople} people
                                     </Typography>
                                     </CardActions>
                                 </Card>
