@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
 
-require('./config/config')
 const indexRouter = require('./api/index');
 
 const app = express();
