@@ -21,7 +21,6 @@ jobs:
             rm -rf ExamProject
             git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git
             cd ExamProject/EventManagerBackend
-            cp ../../env/.env .
             docker build -t jeff/eventbackend .
-            docker run -p 4000:4000 -v - /home/jeff/env:/usr/src/app -d jeff/eventbackend
+            docker run -p 4000:4000 -v /home/jeff/env:/usr/src/app/ -d jeff/eventbackend
             echo "All done."
