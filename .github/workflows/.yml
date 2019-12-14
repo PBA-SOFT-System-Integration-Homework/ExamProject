@@ -22,6 +22,6 @@ jobs:
             git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git
             cd ExamProject/EventManagerBackend
             docker build -t jeff/eventbackend .
-            docker stop jeff/eventbackend
-            docker run -p 4000:4000 -v /home/jeff/env:/usr/src/app/ -d jeff/eventbackend
+            docker stop eventbackend
+            docker run -p 4000:4000 -v /home/jeff/env:/usr/src/app/ --name eventbackend -d jeff/eventbackend
             echo "All done."
