@@ -23,5 +23,6 @@ jobs:
             cd ExamProject/EventManagerBackend
             docker build -t jeff/eventbackend .
             docker stop eventbackend
+            docker rm --f eventbackend
             docker run -p 4000:4000 -v /home/jeff/env:/usr/src/app/ --name eventbackend -d jeff/eventbackend
             echo "All done."
