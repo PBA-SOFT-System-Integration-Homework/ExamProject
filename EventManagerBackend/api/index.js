@@ -11,5 +11,4 @@ indexRouter.use('/users', usersRouter);
 indexRouter.use('/events', eventsRouter);
 indexRouter.use('/auth', authRouter);
 
-
 module.exports = indexRouter;
