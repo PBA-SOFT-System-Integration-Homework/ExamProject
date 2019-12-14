@@ -1,0 +1,39 @@
+use si_exam;
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+	user_id INT AUTO_INCREMENT  PRIMARY KEY, 
+	username VARCHAR(50),
+    password VARCHAR(50),
+    role VARCHAR(50)
+);
+
+DROP TABLE IF EXISTS events;
+CREATE TABLE events (
+	event_id INT AUTO_INCREMENT PRIMARY KEY, 
+	name VARCHAR(255),
+    description VARCHAR(255),
+    amount_of_people INT
+);
+
+DROP TABLE IF EXISTS cars;
+CREATE TABLE cars (
+	car_id INT AUTO_INCREMENT  PRIMARY KEY, 
+	make VARCHAR(100),
+    year INT,
+    amount_of_seats INT,
+    amount_of_seats_taken INT,
+    type VARCHAR(1),
+    event_id INT,
+    FOREIGN KEY (event_id) REFERENCES events(event_id)
+);
+
+DROP TABLE IF EXISTS users_cars;
+CREATE TABLE users_cars (
+	user_id INT,
+    car_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+	FOREIGN KEY (car_id) REFERENCES cars(car_id)
+);
+
+
