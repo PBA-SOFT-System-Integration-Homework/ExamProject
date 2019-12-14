@@ -18,6 +18,7 @@ app.disable('x-powered-by');
 // }).unless({path:['/api/v1/', '/api/v1/users', '/api/v1/auth']});
 // app.use('/api/v1/', jwtMW, indexRouter);
 
+
 app.use('/api/v1/', indexRouter);
 
 
