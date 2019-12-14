@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 // get connections by using pool.get pool.getConnection();
 const createUser = async (username, password) => {
     const conn = await pool.getConnection();
-    const salt = await bcrypt.genSalt();
+    const salt = 10;
     const hashedPwd = await bcrypt.hash(password, salt);
     try {
         const result = await conn.execute('INSERT INTO users (username, password, role) VALUES (?,?,?)', [username, hashedPwd, 'user']);

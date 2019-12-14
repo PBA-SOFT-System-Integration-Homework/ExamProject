@@ -1,47 +1,50 @@
 use si_exam;
 
+DROP TABLE IF EXISTS users_cars;
+DROP TABLE IF EXISTS cars;
+DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-	user_id INT AUTO_INCREMENT  PRIMARY KEY, 
-	username VARCHAR(50),
-    password VARCHAR(50),
-    role VARCHAR(50)
+	user_id INT AUTO_INCREMENT  PRIMARY KEY NOT NULL, 
+	username VARCHAR(50) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    role VARCHAR(50) NOT NULL
 );
 
-DROP TABLE IF EXISTS events;
+
 CREATE TABLE events (
-	event_id INT AUTO_INCREMENT PRIMARY KEY, 
-	name VARCHAR(255),
+	event_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+	name VARCHAR(255) NOT NULL,
     description VARCHAR(255),
-    amount_of_people INT,
-    location VARCHAR(255)
+    amount_of_people INT NOT NULL,
+    location VARCHAR(255) NOT NULL
 );
 
-DROP TABLE IF EXISTS cars;
+
 CREATE TABLE cars (
-	car_id INT AUTO_INCREMENT  PRIMARY KEY, 
+	car_id INT AUTO_INCREMENT  PRIMARY KEY NOT NULL, 
 	make VARCHAR(100),
     year INT,
-    amount_of_seats INT,
-    amount_of_seats_taken INT,
-    type VARCHAR(1),
-    event_id INT,
+    amount_of_seats INT NOT NULL,
+    amount_of_seats_taken INT NOT NULL,
+    type VARCHAR(1) NOT NULL,
+    event_id INT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES events(event_id)
 );
 
-DROP TABLE IF EXISTS users_cars;
+
 CREATE TABLE users_cars (
-	user_id INT,
-    car_id INT,
+	user_id INT NOT NULL,
+    car_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
 	FOREIGN KEY (car_id) REFERENCES cars(car_id)
 );
 
 # USER
-INSERT INTO users(username, password, role) VALUES('test', 'test', 'user');
-INSERT INTO users(username, password, role) VALUES('admin', 'admin', 'admin');
-INSERT INTO users(username, password, role) VALUES('rasmus', 'vonbekkenfelt', 'user');
-INSERT INTO users(username, password, role) VALUES('thera', 'vonnikkenfelt', 'user');
+INSERT INTO users(username, password, role) VALUES('test', '$2b$10$eYoEkAkX9RFOSuVig3Ej.O2aF4nMiBOxBQ/oOhkZo.EI6UOzPsewG', 'user');
+INSERT INTO users(username, password, role) VALUES('admin', '$2b$10$CtKD3MMdwrRauyFKiObiIudKr3YxU8yiIUWIUO0SGmAUBVoZdoQNm', 'admin');
+INSERT INTO users(username, password, role) VALUES('rasmus', '$2b$10$d58hnch0HBhKWNoVL6ECy.zRFVRfJYC6WEPpFPoB5.FCgGpmQznSW', 'user');
+INSERT INTO users(username, password, role) VALUES('thera', '$2b$10$pfpUKaK3CeZTLXSi7A0z3uHeXepXg6bRkrzJ16nAmQyTSGHre92S.', 'user');
 
 # EVENTS
 INSERT INTO events(name, description, amount_of_people) VALUES('Christmas Party', 'Come enjoy yourself at this amazing event...', 100);
