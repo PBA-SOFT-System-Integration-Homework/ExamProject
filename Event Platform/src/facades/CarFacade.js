@@ -1,11 +1,11 @@
-import  { makeOptions, handleHttpErrors } from '../utils/helperMethods'
+import  { handleHttpErrors } from '../utils/helperMethods'
 
 const URL = "### BACKEND URL ###";
 
 class CarFacade {
 
     async getCarsForEvent(event) {
-        let cars = await fetch(URL + "cars/event/" + event, data).then(handleHttpErrors);
+        let cars = await fetch(URL + "cars/event/" + event).then(handleHttpErrors);
         return cars;
     }
 
