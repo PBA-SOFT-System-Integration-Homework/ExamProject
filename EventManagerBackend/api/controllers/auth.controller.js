@@ -1,14 +1,21 @@
-const authDb = require('../../db/authDb');
+const { loginAuth } = require('../../db/authDb');
 
 /**
  * Login 
  */
 const login = (username, password) => {
-    console.log('hello')
-
+    if (!username || !password || username === "" || password === "") {
+        return { error: 'Username or password is missing' }
+    }
+    try {
+        return user = loginAuth(username, password);
+    } catch (err) {
+        console.log(err);
+        return { error: err.message }
+    }
 }
 
 
-exports.modules = {
-    login,
+module.exports = {
+    login
 }

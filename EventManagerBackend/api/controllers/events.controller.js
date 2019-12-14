@@ -23,7 +23,7 @@ const updateEvent = () => {
 
 }
 
-exports.modules = {
+module.exports = {
     addEvent,
     removeEvent,
     updateEvent,

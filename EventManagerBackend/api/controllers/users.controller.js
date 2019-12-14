@@ -1,12 +1,20 @@
-const usersDb = require('../../db/usersDb');
-
-// ADD LOGIC HERE THEN CALL DB,
+const { createUser, getUserByUsername } = require('../../db/usersDb');
 
 /**
  * Register user to database
  */
-const addUser = () => {
+const addUser = async (username, password) => {
+    if (!username || !password || username === "" || password === "") {
+        return { error: 'Username or password is missing' }
+    }
 
+    if (await getUserByUsername(username)) return { error: "Username already exists" };
+    try {
+        return await createUser(username, password);
+    } catch (err) {
+        console.log(err);
+        return { error: err.message }
+    }
 }
 
 /**
@@ -24,7 +32,7 @@ const updateUser = () => {
 }
 
 
-exports.modules = {
+module.exports = {
     addUser,
     removeUser,
     updateUser,
