@@ -10,6 +10,6 @@ class UserFacade {
         return user;
     }
 
-  }
-  let UserFacade = new UserFacade();
-  export default UserFacade;
+}
+let UserFacade = new UserFacade();
+export default UserFacade;
