@@ -1,7 +1,7 @@
 const express = require('express');
 const usersRouter = express.Router();
 
-const {addUser, removeUser, updateUser} = require('../controllers/users.controller');
+const { addUser, removeUser, updateUser } = require('../controllers/users.controller');
 
 /* GET users listing. */
 usersRouter.get('/', function (req, res, next) {
@@ -9,8 +9,17 @@ usersRouter.get('/', function (req, res, next) {
 });
 
 /* POST users listing. */
-usersRouter.post('/:id', function (req, res, next) {
-  res.json({ users: [{ name: 'Timmy' }] });
+usersRouter.post('/', async function (req, res, next) {
+  if (req.body.newUser) {
+    const { username, password } = req.body.newUser
+    const result = await addUser(username, password);
+    if (result.error) {
+      return res.json({ error: result.error })
+    }
+    return res.json({ success: 'User added succesfully' });
+  } else {
+    return res.json({ error: 'No user data provided' });
+  }
 });
 
 /* PUT users listing. */

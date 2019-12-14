@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 const { dbUsername, dbHost, dbName, dbPassword } = require('../config/config');
 let pool;
 module.exports = {

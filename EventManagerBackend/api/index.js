@@ -1,15 +1,15 @@
 const express = require('express');
-const app = express();
+const indexRouter = express.Router();
 
 const usersRouter = require('./routes/users');
 const eventsRouter = require('./routes/events');
 const authRouter = require('./routes/auth');
 
-app.get('/', (req, res, next) => res.json({ hello: "World!" }));
+indexRouter.get('/', (req, res, next) => res.json({ hello: "World!" }));
 
-app.use('users', usersRouter);
-app.use('events', eventsRouter);
-app.use('auth', authRouter);
+indexRouter.use('/users', usersRouter);
+indexRouter.use('/events', eventsRouter);
+indexRouter.use('/auth', authRouter);
 
 
-module.exports = app;
+module.exports = indexRouter;
