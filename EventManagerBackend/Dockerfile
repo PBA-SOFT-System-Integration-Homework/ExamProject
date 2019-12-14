@@ -16,4 +16,4 @@ RUN npm install --only=prod
 COPY . .
 
 EXPOSE 4000
-CMD [ "node", "-r", "dotenv/config", "bin/www" "dotenv_config_path=/env" ]
+CMD [ "node", "-r", "dotenv/config", "bin/www", "dotenv_config_path=/usr/src/app/env/.env" ]
