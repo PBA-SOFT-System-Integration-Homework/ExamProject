@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
 
-require('./config/config')
 const indexRouter = require('./api/index');
 
 const app = express();
@@ -18,6 +17,7 @@ app.disable('x-powered-by');
 //     secret: secret,
 // }).unless({path:['/api/v1/', '/api/v1/users', '/api/v1/auth']});
 // app.use('/api/v1/', jwtMW, indexRouter);
+
 
 app.use('/api/v1/', indexRouter);
 

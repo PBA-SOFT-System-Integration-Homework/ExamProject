@@ -22,6 +22,7 @@ usersRouter.post('/', async function (req, res, next) {
   }
 });
 
+
 // /* PUT users listing. */
 // usersRouter.put('/:id', function (req, res, next) {
 //   res.json({ users: [{ name: 'Timmy' }] });

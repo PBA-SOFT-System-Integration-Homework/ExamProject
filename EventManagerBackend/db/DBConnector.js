@@ -1,14 +1,14 @@
 const mysql = require('mysql2/promise');
-const { dbUsername, dbHost, dbName, dbPassword } = require('../config/config');
+
 let pool;
 module.exports = {
   getPool: function () {
     if (pool) return pool;
     pool = mysql.createPool({
-      host: dbHost,
-      user: dbUsername,
-      password: dbPassword,
-      database: dbName
+      host: process.env.DB_HOST,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME
     });
     return pool;
   }
