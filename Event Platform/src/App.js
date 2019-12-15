@@ -5,6 +5,7 @@ import Events from './components/Events'
 import users from './data/users'
 import AddEvent from './components/AddEvent'
 import Modal from './components/Modal'
+import UserFacade from './facades/UserFacade'
 
 
 class App extends React.Component {
@@ -79,10 +80,18 @@ class App extends React.Component {
   }
 
   handleEventClick = (evt) => {
-    console.log(evt)
     let id = evt.target.id
-    console.log("evt. taget " + id)
     this.setState({ currentEvent: id })
+  }
+
+  handleCreateUser = (evt) => {
+    let username = this.state.username
+    let password = this.state.password
+    let user = await UserFacade.createUser({newUser: {username: username, password: password}})
+    this.setState({
+      username: "",
+      password: ""
+    })
   }
 
   render() {

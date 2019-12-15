@@ -10,6 +10,12 @@ class UserFacade {
         return user;
     }
 
+    async createUser(credentials) {
+        let data = makeOptions("GET", credentials);
+        let user = await fetch(URL, data).then(handleHttpErrors);
+        return user;
+    }
+
 }
 let UserFacade = new UserFacade();
 export default UserFacade;
