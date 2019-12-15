@@ -1,13 +1,13 @@
 import './App.css';
 import React from 'react'
 import SignIn from './components/SignIn'
+import Signup from './components/SignUp'
 import Events from './components/Events'
 import users from './data/users'
 import AddEvent from './components/AddEvent'
 import Modal from './components/Modal'
 import UserFacade from './facades/UserFacade'
-import fetch from 'node-fetch'
-
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props) {
@@ -52,19 +52,14 @@ class App extends React.Component {
   } 
 
   handleLogin = async (event) => {
-    let username = this.state.username
-    let password = this.state.password
-
+    const { username, password } = this.state
     let credentials = {username: username, password: password}
-    let user = await UserFacade.login(credentials)
-    console.log(user)
 
-
-    // users.forEach(user => {
-    //   if (username === user.username && password === user.password) {
-    //     this.setState({loggedIn: true, role: user.role})
-    //   }
-    // })
+    let response = await UserFacade.login(credentials)
+    response.error ? alert(response.error) : this.setState({loggedIn: true, 
+                                                            role: response.role, 
+                                                            username: "", 
+                                                            password: ""})
   } 
 
   addEvent = (evt) => {
@@ -91,22 +86,33 @@ class App extends React.Component {
   }
 
   handleCreateUser = async (evt) => {
-    let username = this.state.username
-    let password = this.state.password
-    let user = await UserFacade.createUser({newUser: {username: username, password: password}})
-    this.setState({
-      username: "",
-      password: ""
-    })
+    const { username, password } = this.state
+    let response = await UserFacade.createUser({newUser: {username: username, password: password}})
+    if (response.error) alert(response.error);
+    else {
+      alert(response.succces);
+      this.setState({loggedIn: true, 
+        role: response.role, 
+        username: "", 
+        password: ""})
+      }
   }
 
   render() {
     if (!this.state.loggedIn) {
       return (
-        <div>
-          <SignIn handleInputChange={this.handleInputChange} handleLogin={this.handleLogin}/>
-          {JSON.stringify(users)}
-        </div>
+        <Router>
+          <div>
+            <header>
+              <NavLink exact to="/">Sign In</NavLink>
+              <NavLink exact to="/signUp">Sign Up</NavLink>
+            </header>
+            <hr/>
+            <Route exact path="/" render={() => <SignIn handleInputChange={this.handleInputChange} handleLogin={this.handleLogin}/>}/>
+            <Route exact path="/signUp" render={() => <Signup handleInputChange={this.handleInputChange} handleCreateUser={this.handleCreateUser} />} />
+            {JSON.stringify(users)}
+          </div>
+        </Router>
         )
       } else {
         return (

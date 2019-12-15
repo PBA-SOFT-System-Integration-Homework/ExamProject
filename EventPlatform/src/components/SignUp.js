@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockOutlinedIcon from '@material-ui/icons/AccessAlarm';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import useStyles from '../styles/SignIn'
@@ -17,7 +17,7 @@ function Copyright() {
   );
 }
 
-export default function SignIn(props) {
+export default function SignUp(props) {
   const classes = useStyles();
 
   return (
@@ -56,7 +56,6 @@ export default function SignIn(props) {
             onChange={props.handleInputChange}
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
