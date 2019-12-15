@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
+const cors = require('cors')
 
 const indexRouter = require('./api/index');
 
@@ -10,6 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser())
+app.use(cors())
 app.disable('x-powered-by');
 
 // const secret = process.env.NODE_ENV === 'prod' ? 'test' : process.env.JWT_SECRET;

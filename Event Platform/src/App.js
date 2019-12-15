@@ -6,6 +6,7 @@ import users from './data/users'
 import AddEvent from './components/AddEvent'
 import Modal from './components/Modal'
 import UserFacade from './facades/UserFacade'
+import fetch from 'node-fetch'
 
 
 class App extends React.Component {
@@ -50,15 +51,20 @@ class App extends React.Component {
     this.setState({ [type]: value })
   } 
 
-  handleLogin = (event) => {
+  handleLogin = async (event) => {
     let username = this.state.username
     let password = this.state.password
 
-    users.forEach(user => {
-      if (username === user.username && password === user.password) {
-        this.setState({loggedIn: true, role: user.role})
-      }
-    })
+    let credentials = {username: username, password: password}
+    let user = await UserFacade.login(credentials)
+    console.log(user)
+
+
+    // users.forEach(user => {
+    //   if (username === user.username && password === user.password) {
+    //     this.setState({loggedIn: true, role: user.role})
+    //   }
+    // })
   } 
 
   addEvent = (evt) => {
@@ -84,7 +90,7 @@ class App extends React.Component {
     this.setState({ currentEvent: id })
   }
 
-  handleCreateUser = (evt) => {
+  handleCreateUser = async (evt) => {
     let username = this.state.username
     let password = this.state.password
     let user = await UserFacade.createUser({newUser: {username: username, password: password}})

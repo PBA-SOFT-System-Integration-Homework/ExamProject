@@ -17,23 +17,6 @@ const addUser = async (username, password) => {
     }
 }
 
-/**
- * Remove user
- */
-const removeUser = () => {
-
-}
-
-/**
- * Update existing user
- */
-const updateUser = () => {
-
-}
-
-
 module.exports = {
     addUser,
-    removeUser,
-    updateUser,
 }

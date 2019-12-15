@@ -56,7 +56,6 @@ export default function SignIn(props) {
             onChange={props.handleInputChange}
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"

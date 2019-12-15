@@ -1,12 +1,7 @@
 const express = require('express');
 const usersRouter = express.Router();
 
-const { addUser, removeUser, updateUser } = require('../controllers/users.controller');
-
-// /* GET users listing. */
-// usersRouter.get('/', function (req, res, next) {
-//   res.json({ users: [{ name: 'Timmy' }] });
-// });
+const { addUser } = require('../controllers/users.controller');
 
 /* POST users listing. */
 usersRouter.post('/', async function (req, res, next) {
@@ -21,16 +16,5 @@ usersRouter.post('/', async function (req, res, next) {
     return res.status(500).json({ error: 'No user data provided' });
   }
 });
-
-
-// /* PUT users listing. */
-// usersRouter.put('/:id', function (req, res, next) {
-//   res.json({ users: [{ name: 'Timmy' }] });
-// });
-
-// /* DELETE users listing. */
-// usersRouter.delete('/:id', function (req, res, next) {
-//   res.json({ users: [{ name: 'Timmy' }] });
-// });
 
 module.exports = usersRouter;
