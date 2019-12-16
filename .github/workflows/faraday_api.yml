@@ -1,0 +1,28 @@
+name: faraday_api
+
+on:
+  push:
+    paths:
+      - "Faraday_API/**"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -rf Faraday_API
+            git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git Faraday_API
+            cd Faraday_API/Faraday_API
+            docker build -t jeff/faradayapi .
+            docker stop faradayapi
+            docker rm --force faradayapi
+            docker run -p 4002:8080 --name faradayapi -d jeff/faradayapi
+            echo "All done."
