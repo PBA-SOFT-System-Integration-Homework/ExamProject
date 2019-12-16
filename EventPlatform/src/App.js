@@ -7,6 +7,7 @@ import users from './data/users'
 import AddEvent from './components/AddEvent'
 import Modal from './components/Modal'
 import UserFacade from './facades/UserFacade'
+import EventFacade from './facades/EventFacade'
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 
 class App extends React.Component {
@@ -22,26 +23,27 @@ class App extends React.Component {
       addEventDescription: "",
       addEventDate: "",
       addEventAmoutOfPeople: "",
-      events: [
-        {
-            name: "Christmas Party",
-            date: "28/09/2020",
-            description: "Get drunk with your colleagues! Pure heaven...",
-            amountOfPeople: "75"
-        },
-        {
-            name: "Obligatory meeting",
-            date: "21/09/2020",
-            description: "Meeting regarding the new transformation shaping our upcoming future...",
-            amountOfPeople: "50"
-        },
-        {
-            name: "Pool Party",
-            date: "09/09/2020",
-            description: "The biggest corporate pool party to come. You'll have to sign up to find out more...",
-            amountOfPeople: "100"
-        }
-      ]
+      events: []
+      // events: [
+      //   {
+      //       name: "Christmas Party",
+      //       date: "28/09/2020",
+      //       description: "Get drunk with your colleagues! Pure heaven...",
+      //       amountOfPeople: "75"
+      //   },
+      //   {
+      //       name: "Obligatory meeting",
+      //       date: "21/09/2020",
+      //       description: "Meeting regarding the new transformation shaping our upcoming future...",
+      //       amountOfPeople: "50"
+      //   },
+      //   {
+      //       name: "Pool Party",
+      //       date: "09/09/2020",
+      //       description: "The biggest corporate pool party to come. You'll have to sign up to find out more...",
+      //       amountOfPeople: "100"
+      //   }
+      // ]
     }
   }
 
@@ -56,10 +58,16 @@ class App extends React.Component {
     let credentials = {username: username, password: password}
 
     let response = await UserFacade.login(credentials)
-    response.error ? alert(response.error) : this.setState({loggedIn: true, 
-                                                            role: response.role, 
-                                                            username: "", 
-                                                            password: ""})
+    if (response.error) {
+      alert(response.error)
+    } else {
+      let events = await EventFacade.getEvents();
+      this.setState({loggedIn: true, 
+        role: response.role, 
+        username: "", 
+        password: "",
+        events: events})
+    }
   } 
 
   addEvent = (evt) => {

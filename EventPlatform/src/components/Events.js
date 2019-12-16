@@ -59,7 +59,7 @@ export default function Event(props) {
                                     <CardActions>
 
                                         <button type="button" 
-                                            class="btn btn-primary" 
+                                            className="btn btn-primary" 
                                             data-toggle="modal"
                                             id={idx} 
                                             data-target="#exampleModalLong"
