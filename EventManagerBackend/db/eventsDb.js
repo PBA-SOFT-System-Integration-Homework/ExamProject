@@ -23,7 +23,7 @@ const addEvent = async (name, description, date, amountOfPeople, location) => {
         if (result[0].length !== 0) return result[0];
     } catch (err) {
         console.log('Error', err);
-        throw Error('An error occured while inserting');
+        throw Error('An error occured while adding');
     } finally {
         conn.release();
     }

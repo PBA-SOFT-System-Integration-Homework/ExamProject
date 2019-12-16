@@ -18,14 +18,13 @@ eventsRouter.get('/:id', function (req, res, next) {
 });
 
 /* POST event. */
-eventsRouter.post('/', function (req, res, next) {
+eventsRouter.post('/', async function (req, res, next) {
     const { name, description, date, amountOfPeople, location } = req.body
     const result = await addEvent(name, description, date, amountOfPeople, location);
     if (result.error) {
       return res.status(500).json({ error: result.error })
     }
     return res.status(200).json(result);
-    res.json({ events: [{ name: 'Timmy' }] });
 });
 
 // /* PUT events listing. */
