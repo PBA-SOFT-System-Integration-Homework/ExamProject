@@ -55,6 +55,9 @@ export default function Event(props) {
                                         <Typography>
                                         {event.description}
                                     </Typography>
+                                    <Typography>
+                                        Location: {event.location}
+                                    </Typography>
                                     </CardContent>
                                     <CardActions>
 
@@ -72,7 +75,7 @@ export default function Event(props) {
                                         {event.date}
                                     </Typography>
                                     <Typography>
-                                        | {event.amountOfPeople} people
+                                        | {event.amount_of_people} people
                                     </Typography>
                                     </CardActions>
                                 </Card>

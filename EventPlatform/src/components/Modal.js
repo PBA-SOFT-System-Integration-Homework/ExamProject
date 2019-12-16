@@ -10,11 +10,10 @@ export default function Modal(props) {
   return (
 
       <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      {console.log(props.currentEvent)}
     <div className="modal-dialog" role="document">
         <div className="modal-content">
         <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLongTitle">{props.event.name + " | " + props.event.date + " | " + props.event.amountOfPeople + " people"}</h5>
+            <h5 className="modal-title" id="exampleModalLongTitle">{props.event.name + " | " + props.event.date + " | " + props.event.amount_of_people + " people"}</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>

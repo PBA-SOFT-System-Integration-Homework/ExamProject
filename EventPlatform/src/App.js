@@ -60,20 +60,24 @@ class App extends React.Component {
       location: this.state.addEventLocation
     }]
 
-    let response = await EventFacade.addEvent(event[0]);
-
-    if (response.error) alert(response.error)
+    if (isNaN(event[0].amountOfPeople)) alert("Input for 'Amount of people' is not a valid number..")
+      
     else {
-      this.setState(prevState => {
-        return {
-          events: prevState.events.concat(event),
-          addEventName: "",
-          addEventDescription: "",
-          addEventDate: "",
-          addEventAmoutOfPeople: "",
-          addEventLocation: ""
-        };
-      });
+      let response = await EventFacade.addEvent(event[0]);
+  
+      if (response.error) alert(response.error)
+      else {
+        this.setState(prevState => {
+          return {
+            events: prevState.events.concat(event),
+            addEventName: "",
+            addEventDescription: "",
+            addEventDate: "",
+            addEventAmoutOfPeople: "",
+            addEventLocation: ""
+          };
+        });
+      }
     }
   }
 
