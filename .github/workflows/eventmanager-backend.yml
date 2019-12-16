@@ -18,9 +18,9 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            rm -rf ExamProject
-            git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git
-            cd ExamProject/EventManagerBackend
+            rm -rf EventManagerBackend
+            git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git EventManagerBackend
+            cd EventManagerBackend/EventManagerBackend
             docker build -t jeff/eventbackend .
             docker stop eventbackend
             docker rm --force eventbackend
