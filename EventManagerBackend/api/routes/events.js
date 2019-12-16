@@ -24,6 +24,7 @@ eventsRouter.post('/', async function (req, res, next) {
     if (result.error) {
       return res.status(500).json({ error: result.error })
     }
+    // Add cars to event here...
     return res.status(200).json(result);
 });
 

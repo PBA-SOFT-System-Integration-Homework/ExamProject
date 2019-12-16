@@ -19,7 +19,7 @@ const getEvents = async () => {
 const addEvent = async (name, description, date, amountOfPeople, location) => {
     const conn = await pool.getConnection();
     try {
-        const result = await conn.execute('INSERT INTO events (name, description, date, amountOfPeople, location) VALUES (?,?,?,?,?)', [name, description, date, amountOfPeople, location]);
+        const result = await conn.execute('INSERT INTO events (name, description, date, amount_of_people, location) VALUES (?,?,?,?,?)', [name, description, date, amountOfPeople, location]);
         if (result[0].length !== 0) return result[0];
     } catch (err) {
         console.log('Error', err);
