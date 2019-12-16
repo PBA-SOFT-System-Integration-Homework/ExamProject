@@ -16,6 +16,7 @@ CREATE TABLE events (
 	event_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
 	name VARCHAR(255) NOT NULL,
     description VARCHAR(255),
+    date VARCHAR(255) NOT NULL,
     amount_of_people INT NOT NULL,
     location VARCHAR(255) NOT NULL
 );

@@ -2,6 +2,7 @@ const express = require('express');
 const eventsRouter = express.Router();
 
 const { addEvent, removeEvent, updateEvent, getEventByName, getEvents } = require('../controllers/events.controller');
+const { getCars, bookCars } = require('../controllers/cars.controller');
 
 /* GET events listing. */
 eventsRouter.get('/', async function (req, res, next) {
@@ -24,8 +25,22 @@ eventsRouter.post('/', async function (req, res, next) {
     if (result.error) {
       return res.status(500).json({ error: result.error })
     }
-    // Add cars to event here...
-    return res.status(200).json(result);
+
+    // Booking cars for event
+    const cars = await getCars(amountOfPeople);
+    console.log("retrieved cars")
+    if (cars.error) {
+        return res.status(500).json({ error: cars.error })
+    } else {
+        const eventId = result.insertId
+        console.log("trying to book cars now")
+        const res = await bookCars(cars, eventId)
+        if (res.error) {
+            return res.status(500).json({ error: res.error })
+        } else {
+            return JSON.stringify(res)
+        }
+    }
 });
 
 // /* PUT events listing. */
