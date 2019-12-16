@@ -1,10 +1,19 @@
 const express = require('express');
 const eventsRouter = express.Router();
 
-const { addEvent, removeEvent, updateEvent } = require('../controllers/events.controller');
+const { addEvent, removeEvent, updateEvent, getEventByName, getEvents } = require('../controllers/events.controller');
 
 /* GET events listing. */
-eventsRouter.get('/', function (req, res, next) {
+eventsRouter.get('/', async function (req, res, next) {
+    const result = await getEvents();
+    if (result.error) {
+      return res.status(500).json({ error: result.error })
+    }
+    return res.status(200).json(result);
+});
+
+/* GET event by id. */
+eventsRouter.get('/:id', function (req, res, next) {
     res.json({ events: [{ name: 'Timmy' }] });
 });
 

@@ -12,6 +12,25 @@ const addEvent = () => {
 /**
  * 
  */
+const getEvents = async () => {
+    try {
+        return await eventsDb.getEvents();
+    } catch (err) {
+        console.log(err);
+        return { error: err.message }
+    }
+}
+
+/**
+ * 
+ */
+const getEventByName = () => {
+
+}
+
+/**
+ * 
+ */
 const removeEvent = () => {
 
 }
@@ -27,4 +46,6 @@ module.exports = {
     addEvent,
     removeEvent,
     updateEvent,
+    getEventByName,
+    getEvents
 }
