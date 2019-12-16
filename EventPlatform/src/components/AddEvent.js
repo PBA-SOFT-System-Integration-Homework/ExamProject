@@ -61,6 +61,19 @@ export default function AddEvent(props) {
                     onChange={props.handleInputChange}
                     value={props.state.addEventAmoutOfPeople}
                 />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="location"
+                    label="Location"
+                    type="description"
+                    id="addEventLocation"
+                    autoComplete="Location"
+                    onChange={props.handleInputChange}
+                    value={props.state.addEventLocation}
+                />
                 <Button
                     fullWidth
                     variant="contained"

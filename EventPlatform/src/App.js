@@ -23,27 +23,8 @@ class App extends React.Component {
       addEventDescription: "",
       addEventDate: "",
       addEventAmoutOfPeople: "",
+      addEventLocation: "",
       events: []
-      // events: [
-      //   {
-      //       name: "Christmas Party",
-      //       date: "28/09/2020",
-      //       description: "Get drunk with your colleagues! Pure heaven...",
-      //       amountOfPeople: "75"
-      //   },
-      //   {
-      //       name: "Obligatory meeting",
-      //       date: "21/09/2020",
-      //       description: "Meeting regarding the new transformation shaping our upcoming future...",
-      //       amountOfPeople: "50"
-      //   },
-      //   {
-      //       name: "Pool Party",
-      //       date: "09/09/2020",
-      //       description: "The biggest corporate pool party to come. You'll have to sign up to find out more...",
-      //       amountOfPeople: "100"
-      //   }
-      // ]
     }
   }
 
@@ -70,22 +51,30 @@ class App extends React.Component {
     }
   } 
 
-  addEvent = (evt) => {
+  addEvent = async (evt) => {
     let event = [{
       name: this.state.addEventName,
       description: this.state.addEventDescription,
       date: this.state.addEventDate,
-      amountOfPeople: this.state.addEventAmoutOfPeople
+      amountOfPeople: this.state.addEventAmoutOfPeople,
+      location: this.state.addEventLocation
     }]
-    this.setState(prevState => {
-      return {
-        events: prevState.events.concat(event),
-        addEventName: "",
-        addEventDescription: "",
-        addEventDate: "",
-        addEventAmoutOfPeople: ""
-      };
-    });
+
+    let response = await EventFacade.addEvent(event[0]);
+
+    if (response.error) alert(response.error)
+    else {
+      this.setState(prevState => {
+        return {
+          events: prevState.events.concat(event),
+          addEventName: "",
+          addEventDescription: "",
+          addEventDate: "",
+          addEventAmoutOfPeople: "",
+          addEventLocation: ""
+        };
+      });
+    }
   }
 
   handleEventClick = (evt) => {
@@ -122,7 +111,7 @@ class App extends React.Component {
           </div>
         </Router>
         )
-      } else {
+    } else {
         return (
           <div>
              {JSON.stringify(this.state)}

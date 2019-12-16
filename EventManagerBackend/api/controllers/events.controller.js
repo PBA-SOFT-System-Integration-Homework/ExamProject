@@ -5,8 +5,13 @@ const eventsDb = require('../../db/eventsDb');
 /**
  * Register user to database
  */
-const addEvent = () => {
-
+const addEvent = async (name, description, date, amountOfPeople, location) => {
+    try {
+        return await eventsDb.addEvent(name, description, date, amountOfPeople, location);
+    } catch (err) {
+        console.log(err);
+        return { error: err.message }
+    }
 }
 
 /**

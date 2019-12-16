@@ -17,6 +17,14 @@ class EventFacade {
         // return cars;
     }
 
+    async addEvent(event) {
+        let data = makeOptions("POST", event);
+        let events = await fetch(URL, data).then(res => {
+            return res.json();
+        });
+        return events;
+    }
+
   }
   let eventFacade = new EventFacade();
   export default eventFacade;
