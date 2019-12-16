@@ -20,7 +20,7 @@ jobs:
           script: |
             rm -rf EventPlatform
             git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git EventPlatform
-            cd EventPlatform/Eventplatform
+            cd EventPlatform/EventPlatform
             docker build -t jeff/eventfrontend .
             docker stop eventfrontend
             docker rm --force eventfrontend
