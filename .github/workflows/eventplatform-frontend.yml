@@ -1,0 +1,28 @@
+name: Eventplatform frontend
+
+on:
+  push:
+    paths:
+      - "EventPlatform/**"
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -rf EventPlatform
+            git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git EventPlatform
+            cd ExamProject/EventPlatform
+            docker build -t jeff/eventfrontend .
+            docker stop eventfrontend
+            docker rm --force eventfrontend
+            docker run -p 4001:4001 --name eventfrontend -d jeff/eventfrontend
+            echo "DONE!"

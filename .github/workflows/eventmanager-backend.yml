@@ -1,4 +1,4 @@
-name: Deploy
+name: EventManagerBackend
 
 on:
   push:
