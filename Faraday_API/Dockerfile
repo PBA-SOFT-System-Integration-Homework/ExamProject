@@ -13,7 +13,6 @@ WORKDIR /tmp
 
 RUN mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end package
 
-
 ## run tomcat and add built .war
 FROM tomcat:8-jre8
 RUN apt-get update && apt-get install -y \
