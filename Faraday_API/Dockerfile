@@ -1,25 +1,26 @@
-FROM maven:3.5.2-jdk-8-alpine AS MAVEN_TOOL_CHAIN
+FROM maven:3.5.2-jdk-8-slim AS MAVEN_TOOL_CHAIN
 
 ARG MAVEN_REPO_USER
-ARG MAVEN_REPO_PASSWORD
+ARG MAVEN_REPO_PASS
 ARG MAVEN_REPO_URL
 
 ENV MAVEN_REPO_USER=$MAVEN_REPO_USER
-ENV MAVEN_REPO_PASSWORD=$MAVEN_REPO_PASSWORD
+ENV MAVEN_REPO_PASS=$MAVEN_REPO_PASS
 ENV MAVEN_REPO_URL=$MAVEN_REPO_URL
 
-COPY pom.xml /tmp/
-COPY src /tmp/src/
-WORKDIR /tmp/
-RUN cd .. && mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end compile
-RUN mvn clean package -U
+COPY . /tmp/
+WORKDIR /tmp
 
+RUN mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end package
+
+## run tomcat and add built .war
 FROM tomcat:8-jre8
 RUN apt-get update && apt-get install -y \
     nano \
 && mkdir -p /usr/local/tomcat/conf
 
 EXPOSE 8080
+
 
 # Copy configurations (Tomcat users, Manager app)
 COPY tomcat-users.xml /usr/local/tomcat/conf/

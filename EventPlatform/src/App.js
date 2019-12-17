@@ -8,13 +8,16 @@ import AddEvent from './components/AddEvent'
 import Modal from './components/Modal'
 import UserFacade from './facades/UserFacade'
 import EventFacade from './facades/EventFacade'
+import CarsFacade from './facades/CarsFacade'
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentEvent: 1,
+      currentEventId: 1,
+      currentEvent: {},
+      userId: "",
       username: "", 
       password: "", 
       loggedIn: false, 
@@ -24,7 +27,8 @@ class App extends React.Component {
       addEventDate: "",
       addEventAmoutOfPeople: "",
       addEventLocation: "",
-      events: []
+      events: [],
+      cars: []
     }
   }
 
@@ -42,9 +46,11 @@ class App extends React.Component {
     if (response.error) {
       alert(response.error)
     } else {
+      console.log(response)
       let events = await EventFacade.getEvents();
       this.setState({loggedIn: true, 
         role: response.role, 
+        userId: response.id,
         username: "", 
         password: "",
         events: events})
@@ -81,9 +87,20 @@ class App extends React.Component {
     }
   }
 
-  handleEventClick = (evt) => {
+  handleEventClick = async (evt) => {
     let id = evt.target.id
-    this.setState({ currentEvent: id })
+    let event = this.state.events.find(e => e.event_id == id)
+
+    let cars = await CarsFacade.getCarsForEvent(id);
+    if (cars.error) {
+      alert(cars.error)
+    } else {
+      this.setState({ 
+        currentEventId: id,
+        currentEvent: event,
+        cars: cars
+       })
+    }
   }
 
   handleCreateUser = async (evt) => {
@@ -97,6 +114,26 @@ class App extends React.Component {
         username: "", 
         password: ""})
       }
+  }
+
+  handleBookCar = async (evt) => {
+    let carId = evt.target.id;
+    let userId = this.state.userId
+
+    let response = await CarsFacade.bookCar(carId, userId);
+
+    if(response.error) alert(response.error)
+    else {
+      let cars = this.state.cars;
+      cars = cars.map(car => {
+        if(car.car_id == carId) 
+          car.amount_of_seats_taken += 1;
+        return car;
+      })
+      this.setState({
+        cars: cars
+      })
+    }
   }
 
   render() {
@@ -122,7 +159,6 @@ class App extends React.Component {
              {this.state.role === "admin" ? (
                <div>
                 <AddEvent 
-                  events={this.state.events}
                   addEvent={this.addEvent}
                   handleInputChange={this.handleInputChange}
                   state={this.state}
@@ -138,7 +174,7 @@ class App extends React.Component {
               state={this.state}
               handleEventClick={this.handleEventClick}
               />
-              <Modal id={this.state.currentEvent} event={this.state.events[this.state.currentEvent]} />
+                <Modal id={this.state.currentEventId} event={this.state.currentEvent} cars={this.state.cars} handleBookCar={this.handleBookCar}/>
           </div>
       )
     }

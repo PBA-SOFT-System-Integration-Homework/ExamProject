@@ -38,7 +38,8 @@ CREATE TABLE users_cars (
 	user_id INT NOT NULL,
     car_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-	FOREIGN KEY (car_id) REFERENCES cars(car_id)
+	FOREIGN KEY (car_id) REFERENCES cars(car_id),
+    PRIMARY KEY (user_id, car_id)
 );
 
 # USER

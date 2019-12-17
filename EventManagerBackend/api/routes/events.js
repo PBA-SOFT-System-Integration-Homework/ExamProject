@@ -28,17 +28,15 @@ eventsRouter.post('/', async function (req, res, next) {
 
     // Booking cars for event
     const cars = await getCars(amountOfPeople);
-    console.log("retrieved cars")
     if (cars.error) {
         return res.status(500).json({ error: cars.error })
     } else {
         const eventId = result.insertId
-        console.log("trying to book cars now")
-        const res = await bookCars(cars, eventId)
-        if (res.error) {
-            return res.status(500).json({ error: res.error })
+        const resp = await bookCars(cars, eventId)
+        if (resp.error) {
+            return res.status(500).json({ error: resp.error })
         } else {
-            return JSON.stringify(res)
+            return res.status(200).json({ succes: resp })
         }
     }
 });

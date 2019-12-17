@@ -64,7 +64,7 @@ export default function Event(props) {
                                         <button type="button" 
                                             className="btn btn-primary" 
                                             data-toggle="modal"
-                                            id={idx} 
+                                            id={event.event_id} 
                                             data-target="#exampleModalLong"
                                             onClick={props.handleEventClick}
                                             >

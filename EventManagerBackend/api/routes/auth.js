@@ -11,8 +11,4 @@ authRouter.post('/', async function (req, res, next) {
     return res.status(200).json(result);
 });
 
-authRouter.get('/', async function (req, res, next) {
-    return res.json({ hello: "NADA!" })
-});
-
 module.exports = authRouter;

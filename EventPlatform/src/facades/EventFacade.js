@@ -11,12 +11,6 @@ class EventFacade {
         return events;
     }
 
-    async bookCarsForEvent(amountOfPeople) {
-        // let data = makeOptions("POST", amountOfPeople)
-        // let cars = await fetch(URL, data).then(handleHttpErrors);
-        // return cars;
-    }
-
     async addEvent(event) {
         let data = makeOptions("POST", event);
         let events = await fetch(URL, data).then(res => {
