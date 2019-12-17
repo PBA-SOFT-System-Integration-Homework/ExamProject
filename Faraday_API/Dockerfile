@@ -11,6 +11,9 @@ ENV MAVEN_REPO_URL=$MAVEN_REPO_URL
 COPY . /tmp/
 WORKDIR /tmp
 
+RUN echo ***********************************
+RUN printenv
+RUN echo ***********************************
 RUN mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end package
 
 ## run tomcat and add built .war
