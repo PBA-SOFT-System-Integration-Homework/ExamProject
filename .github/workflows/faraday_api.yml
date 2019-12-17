@@ -21,7 +21,7 @@ jobs:
             rm -rf Faraday_API
             git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git Faraday_API
             cd Faraday_API/Faraday_API
-            docker build --build-arg MAVEN_REPO_USER --build-arg MAVEN_REPO_PASSWORD --build-arg MAVEN_REPO_URL -t jeff/faradayapi .
+            docker build --build-arg MAVEN_REPO_USER --build-arg MAVEN_REPO_PASS --build-arg MAVEN_REPO_URL -t jeff/faradayapi .
             docker stop faradayapi
             docker rm --force faradayapi
             docker run -p 4002:8080 --name faradayapi -d jeff/faradayapi
