@@ -1,3 +1,4 @@
+import  { makeOptions } from '../utils/helperMethods'
 const URL = "http://167.172.98.125:4000/api/v1/cars";
 
 class CarsFacade {
@@ -7,6 +8,14 @@ class CarsFacade {
             return res.json();
         });
         console.log(JSON.stringify(cars))
+        return cars;
+    }
+
+    async bookCar(carId, userId) {
+        let data = makeOptions("POST", {carId: carId, userId: userId});
+        let cars = await fetch(URL, data).then(res => {
+            return res.json();
+        });
         return cars;
     }
 

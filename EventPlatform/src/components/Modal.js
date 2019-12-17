@@ -3,7 +3,7 @@ import React from 'react';
 export default function Modal(props) {
 
     let list = props.cars.map((c, idx) => {
-        return <li key={idx}>{c.make} | {c.year} | seats: {c.amount_of_seats} | seats booked: {c.amount_of_seats_taken} <button>book</button></li>
+        return <li key={idx}>{c.make} | {c.year} | seats: {c.amount_of_seats} | seats booked: {c.amount_of_seats_taken} <button id={c.car_id} onClick={props.handleBookCar}>book</button></li>
     })
 
   return (

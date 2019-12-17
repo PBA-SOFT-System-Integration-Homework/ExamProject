@@ -29,6 +29,20 @@ const bookCars = async (cars, eventId) => {
     return cars;
 }
 
+const bookCar = async (carId, userId) => {
+    const conn = await pool.getConnection();
+    try {
+        const result = await conn.execute('INSERT INTO users_cars (user_id, car_id) VALUES (?,?)', [userId, carId])
+        await conn.execute('UPDATE cars SET amount_of_seats_taken = amount_of_seats_taken + 1 WHERE car_id = ?', [carId])
+        return result[0];
+    } catch (err) {
+        console.log('Error', err);
+        throw Error('An error occured while booking car');
+    } finally {
+        conn.release();
+    }
+}
+
 const getCarsByEventId = async (eventId) => {
     const conn = await pool.getConnection();
     try {
@@ -36,7 +50,7 @@ const getCarsByEventId = async (eventId) => {
         return result[0];
     } catch (err) {
         console.log('Error', err);
-        throw Error('An error occured while getting cars');
+        throw Error('An error occured while getting cars by event');
     } finally {
         conn.release();
     }
@@ -47,5 +61,6 @@ const getCarsByEventId = async (eventId) => {
 module.exports = {
     getCarsFromMiniproject,
     bookCars,
+    bookCar,
     getCarsByEventId
 }
