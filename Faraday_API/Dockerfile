@@ -11,7 +11,7 @@ ENV MAVEN_REPO_URL=$MAVEN_REPO_URL
 COPY pom.xml /tmp/
 COPY src /tmp/src/
 WORKDIR /tmp/
-RUN mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end compile
+RUN cd .. && mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end compile
 RUN mvn clean package -U
 
 FROM tomcat:8-jre8
