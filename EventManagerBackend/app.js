@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const expressJwt = require('express-jwt');
+// const expressJwt = require('express-jwt');
 const cors = require('cors')
 
 const indexRouter = require('./api/index');
