@@ -8,13 +8,15 @@ import AddEvent from './components/AddEvent'
 import Modal from './components/Modal'
 import UserFacade from './facades/UserFacade'
 import EventFacade from './facades/EventFacade'
+import CarsFacade from './facades/CarsFacade'
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentEvent: 1,
+      currentEventId: 1,
+      currentEvent: {},
       username: "", 
       password: "", 
       loggedIn: false, 
@@ -24,7 +26,8 @@ class App extends React.Component {
       addEventDate: "",
       addEventAmoutOfPeople: "",
       addEventLocation: "",
-      events: []
+      events: [],
+      cars: []
     }
   }
 
@@ -81,9 +84,20 @@ class App extends React.Component {
     }
   }
 
-  handleEventClick = (evt) => {
+  handleEventClick = async (evt) => {
     let id = evt.target.id
-    this.setState({ currentEvent: id })
+    let event = this.state.events.find(e => e.event_id == id)
+
+    let cars = await CarsFacade.getCarsForEvent(id);
+    if (cars.error) {
+      alert(cars.error)
+    } else {
+      this.setState({ 
+        currentEventId: id,
+        currentEvent: event,
+        cars: cars
+       })
+    }
   }
 
   handleCreateUser = async (evt) => {
@@ -97,6 +111,10 @@ class App extends React.Component {
         username: "", 
         password: ""})
       }
+  }
+
+  handleBookCar = async (userId, carId) => {
+    
   }
 
   render() {
@@ -122,7 +140,6 @@ class App extends React.Component {
              {this.state.role === "admin" ? (
                <div>
                 <AddEvent 
-                  events={this.state.events}
                   addEvent={this.addEvent}
                   handleInputChange={this.handleInputChange}
                   state={this.state}
@@ -138,7 +155,7 @@ class App extends React.Component {
               state={this.state}
               handleEventClick={this.handleEventClick}
               />
-              <Modal id={this.state.currentEvent} event={this.state.events[this.state.currentEvent]} />
+                <Modal id={this.state.currentEventId} event={this.state.currentEvent} cars={this.state.cars}/>
           </div>
       )
     }

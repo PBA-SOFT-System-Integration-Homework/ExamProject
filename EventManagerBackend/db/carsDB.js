@@ -12,11 +12,8 @@ const getCarsFromMiniproject = async () => {
 }
 
 const bookCars = async (cars, eventId) => {
-    console.log(cars, eventId)
     const conn = await pool.getConnection();
-    let bookedCars = []
     try {
-        
         for (let idx in cars) {
             const { make, year, number_of_seats, car_type_name } = cars[idx]
             console.log([make, year, number_of_seats, 0, car_type_name, eventId])
@@ -29,10 +26,26 @@ const bookCars = async (cars, eventId) => {
     } finally {
         conn.release();
     }
-    return bookedCars;
+    return cars;
 }
+
+const getCarsByEventId = async (eventId) => {
+    const conn = await pool.getConnection();
+    try {
+        const result = await conn.execute('SELECT * FROM cars where event_id = ?', [eventId])
+        return result[0];
+    } catch (err) {
+        console.log('Error', err);
+        throw Error('An error occured while getting cars');
+    } finally {
+        conn.release();
+    }
+}
+
+
 
 module.exports = {
     getCarsFromMiniproject,
-    bookCars
+    bookCars,
+    getCarsByEventId
 }

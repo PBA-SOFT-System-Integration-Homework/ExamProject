@@ -1,19 +1,21 @@
 import React from 'react';
-import cars from '../data/cars'
 
 export default function Modal(props) {
 
-    let list = cars.map(c => {
-        return <li key={c.id}>id: {c.id} | make: {c.make} | year: {c.year} | amount of seats: {c.amount_of_seats} <button>book</button></li>
+    let list = props.cars.map((c, idx) => {
+        return <li key={idx}>{c.make} | {c.year} | seats: {c.amount_of_seats} | seats booked: {c.amount_of_seats_taken} <button>book</button></li>
     })
 
   return (
-
       <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div className="modal-dialog" role="document">
         <div className="modal-content">
         <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLongTitle">{props.event.name + " | " + props.event.date + " | " + props.event.amount_of_people + " people"}</h5>
+            {props.event.name ? (
+                <h5 className="modal-title" id="exampleModalLongTitle">{props.event.name + " | " + props.event.date + " | " + props.event.amount_of_people + " people"}</h5>
+                ) : (
+                <h5 className="modal-title" id="exampleModalLongTitle">No event</h5>
+            )}
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>

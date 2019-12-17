@@ -3,9 +3,6 @@ const { shuffle } = require("../../utils/helperMethods")
 
 // ADD LOGIC HERE THEN CALL DB,
 
-/**
- * Register user to database
- */
 const getCars = async (amountOfPeople) => {
     try {
         let cars = await carsDB.getCarsFromMiniproject();
@@ -37,12 +34,17 @@ const bookCars = async (cars, eventId) => {
     }
 }
 
-/**
- * 
- */
-
+const getCarsById = async (eventId) => {
+    try {
+        return await carsDB.getCarsByEventId(eventId);
+    } catch (err) {
+        console.log(err);
+        return { error: err.message }
+    }
+}
 
 module.exports = {
     getCars,
-    bookCars
+    bookCars,
+    getCarsById
 }
