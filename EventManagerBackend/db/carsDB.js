@@ -2,10 +2,9 @@ const connection = require('./DBConnector')
 const pool = connection.getPool();
 const fetch = require('node-fetch')
 
-const MINIPROJECT_URL = "http://167.172.98.125:3001/car";
 
 const getCarsFromMiniproject = async () => {
-    let cars = await fetch(MINIPROJECT_URL).then(res => {
+    let cars = await fetch(process.env.MOM_SERVICE_URL+"/car").then(res => {
         return res.json();
     });
     return cars;
