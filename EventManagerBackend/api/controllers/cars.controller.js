@@ -63,6 +63,15 @@ const bookCars = async (cars, eventId) => {
     }
 }
 
+const bookCar = async (carId, userId) => {
+    try {
+        return await carsDB.bookCar(carId, userId);
+    } catch (err) {
+        console.log(err);
+        return { error: err.message }
+    }
+}
+
 const getCarsById = async (eventId) => {
     try {
         return await carsDB.getCarsByEventId(eventId);
@@ -75,5 +84,6 @@ const getCarsById = async (eventId) => {
 module.exports = {
     getCars,
     bookCars,
+    bookCar,
     getCarsById
 }

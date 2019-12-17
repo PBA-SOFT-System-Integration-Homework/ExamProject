@@ -17,6 +17,7 @@ class App extends React.Component {
     this.state = {
       currentEventId: 1,
       currentEvent: {},
+      userId: "",
       username: "", 
       password: "", 
       loggedIn: false, 
@@ -45,9 +46,11 @@ class App extends React.Component {
     if (response.error) {
       alert(response.error)
     } else {
+      console.log(response)
       let events = await EventFacade.getEvents();
       this.setState({loggedIn: true, 
         role: response.role, 
+        userId: response.id,
         username: "", 
         password: "",
         events: events})
@@ -113,8 +116,24 @@ class App extends React.Component {
       }
   }
 
-  handleBookCar = async (userId, carId) => {
-    
+  handleBookCar = async (evt) => {
+    let carId = evt.target.id;
+    let userId = this.state.userId
+
+    let response = await CarsFacade.bookCar(carId, userId);
+
+    if(response.error) alert(response.error)
+    else {
+      let cars = this.state.cars;
+      cars = cars.map(car => {
+        if(car.car_id == carId) 
+          car.amount_of_seats_taken += 1;
+        return car;
+      })
+      this.setState({
+        cars: cars
+      })
+    }
   }
 
   render() {
@@ -155,7 +174,7 @@ class App extends React.Component {
               state={this.state}
               handleEventClick={this.handleEventClick}
               />
-                <Modal id={this.state.currentEventId} event={this.state.currentEvent} cars={this.state.cars}/>
+                <Modal id={this.state.currentEventId} event={this.state.currentEvent} cars={this.state.cars} handleBookCar={this.handleBookCar}/>
           </div>
       )
     }
