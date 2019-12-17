@@ -8,11 +8,7 @@ ENV MAVEN_REPO_USER=$MAVEN_REPO_USER
 ENV MAVEN_REPO_PASSWORD=$MAVEN_REPO_PASSWORD
 ENV MAVEN_REPO_URL=$MAVEN_REPO_URL
 
-COPY pom.xml /tmp/
-COPY src /tmp/src/
-WORKDIR /tmp/
-
-RUN mvn -s ../.m2/settings.xml --batch-mode --errors --fail-at-end compile
+RUN mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end compile
 RUN mvn clean package -U
 
 FROM tomcat:8-jre8
@@ -26,5 +22,5 @@ EXPOSE 8080
 COPY tomcat-users.xml /usr/local/tomcat/conf/
 COPY context.xml /usr/local/tomcat/webapps/manager/META-INF/
 
-COPY --from=MAVEN_TOOL_CHAIN /tmp/target/Faraday_API-1.0.war $CATALINA_HOME/webapps/Faraday_API.war
+COPY --from=MAVEN_TOOL_CHAIN /target/Faraday_API-1.0.war $CATALINA_HOME/webapps/Faraday_API.war
 
