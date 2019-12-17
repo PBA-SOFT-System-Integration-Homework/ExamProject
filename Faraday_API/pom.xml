@@ -15,13 +15,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>gitlab-maven</id>
-            <url>https://gitlab.com/api/v4/projects/3467553/packages/maven</url>
-        </repository>
-    </repositories>
-
     <dependencies>
 
         <dependency>
@@ -30,14 +23,10 @@
             <version>1.7</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-server</artifactId>
-            <version>2.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-            <version>2.17</version>
+            <groupId>org.glassfish.jersey.bundles</groupId>
+            <artifactId>jax-rs-ri</artifactId>
+            <version>2.0-m13-3</version>
+            <type>zip</type>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
