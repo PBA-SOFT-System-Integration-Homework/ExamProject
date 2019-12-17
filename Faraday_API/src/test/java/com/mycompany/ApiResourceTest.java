@@ -63,7 +63,7 @@ public class ApiResourceTest {
         List<CarDetails> listOfCars = Arrays.asList(json);
 
         for (CarDetails car : listOfCars) {
-            assertNotEquals(type, car.getCarType().getName());
+            assertEquals(type, car.getCarType().getName());
         }
     }
 
