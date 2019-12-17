@@ -1,5 +1,19 @@
-FROM tomcat:8-jre8
+ARG MAVEN_REPO_USER
+ARG MAVEN_REPO_PASSWORD
+ARG MAVEN_REPO_URL
 
+ENV MAVEN_REPO_USER=$MAVEN_REPO_USER
+ENV MAVEN_REPO_PASSWORD=$MAVEN_REPO_PASSWORD
+ENV MAVEN_REPO_URL=$MAVEN_REPO_URL
+
+FROM maven:3.5.2-jdk-8-alpine AS MAVEN_TOOL_CHAIN
+COPY pom.xml /tmp/
+COPY src /tmp/src/
+WORKDIR /tmp/
+RUN mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end compile
+RUN mvn clean package -U
+
+FROM tomcat:8-jre8
 RUN apt-get update && apt-get install -y \
     nano \
 && mkdir -p /usr/local/tomcat/conf
@@ -10,4 +24,5 @@ EXPOSE 8080
 COPY tomcat-users.xml /usr/local/tomcat/conf/
 COPY context.xml /usr/local/tomcat/webapps/manager/META-INF/
 
-COPY /target/Faraday_API-1.0.war /usr/local/tomcat/webapps/Faraday_API.war
+COPY --from=MAVEN_TOOL_CHAIN /tmp/target/Faraday_API-1.0.war $CATALINA_HOME/webapps/Faraday_API.war
+
