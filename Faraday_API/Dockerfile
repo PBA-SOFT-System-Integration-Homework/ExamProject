@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y \
 
 EXPOSE 8080
 
+
 # Copy configurations (Tomcat users, Manager app)
 COPY tomcat-users.xml /usr/local/tomcat/conf/
 COPY context.xml /usr/local/tomcat/webapps/manager/META-INF/
