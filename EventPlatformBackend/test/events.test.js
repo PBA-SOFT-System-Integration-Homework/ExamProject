@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 let pool = undefined;
 
-describe("*** Events testing ***", function () {
+describe("*** Events tests ***", function () {
     this.timeout(5000);
 
     beforeEach(async () => {

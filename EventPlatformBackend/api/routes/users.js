@@ -11,9 +11,11 @@ usersRouter.post('/', async function (req, res, next) {
     if (result.error) {
       return res.status(500).json({ error: result.error })
     }
-    return res.status(201).json({ success: 'User added succesfully' });
+    // return newly created user
+    return res.status(201).json(result);
+
   } else {
-    return res.status(500).json({ error: 'No user data provided' });
+    return res.status(400).json({ error: 'Missing user data' });
   }
 });
 

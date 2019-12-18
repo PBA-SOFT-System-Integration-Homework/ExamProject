@@ -1,5 +1,6 @@
-const { createUser, getUserByUsername } = require('../../db/usersDb');
+const bcrypt = require('bcrypt');
 
+const { createUser, getUserByUsername } = require('../../db/usersDb');
 /**
  * Register user to database
  */
@@ -10,7 +11,9 @@ const addUser = async (username, password) => {
 
     if (await getUserByUsername(username)) return { error: "Username already exists" };
     try {
-        return await createUser(username, password);
+        const salt = 10;
+        const hashedPwd = await bcrypt.hash(password, salt);
+        return await createUser(username, hashedPwd);
     } catch (err) {
         console.log(err);
         return { error: err.message }

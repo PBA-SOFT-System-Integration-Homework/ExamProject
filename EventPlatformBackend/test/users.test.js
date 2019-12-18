@@ -7,10 +7,10 @@ chai.use(chaiHttp);
 const { expect } = chai;
 let pool = undefined;
 
-describe("*** Auth tests ***", function () {
+describe("*** Users tests ***", function () {
     this.timeout(5000);
 
-    before(async () => {
+    beforeEach(async () => {
         pool = await connector.getPool();
         try {
             await pool.execute("SET FOREIGN_KEY_CHECKS=0");
@@ -22,14 +22,14 @@ describe("*** Auth tests ***", function () {
         }
     })
 
-    describe("Auth API endpoint tests", () => {
+    describe("Users API endpoint tests", () => {
 
-        it("Authenticate user with role user", (done) => {
-            chai.request(server).post('/api/v1/auth')
-                .send({ username: 'test', password: 'test' })
+        it("Should create new user", (done) => {
+            chai.request(server).post('/api/v1/users')
+                .send({ newUser: { username: 'user', password: 'user' } })
                 .end((err, result) => {
                     if (err) done(err);
-                    expect(result.statusCode).to.equal(200);
+                    expect(result.statusCode).to.equal(201);
                     expect(result.body).to.have.property('username');
                     expect(result.body).to.have.property('role');
                     expect(result.body.role).to.equal('user');
@@ -37,39 +37,38 @@ describe("*** Auth tests ***", function () {
                 });
         });
 
-        it("Authenticate user with role admin", (done) => {
-            chai.request(server).post('/api/v1/auth')
-                .send({ username: 'admin', password: 'admin' })
+        it("Should fail with missing newUser object", (done) => {
+            chai.request(server).post('/api/v1/users')
+                .send({})
                 .end((err, result) => {
                     if (err) done(err);
-                    expect(result.statusCode).to.equal(200);
-                    expect(result.body).to.have.property('username');
-                    expect(result.body).to.have.property('role');
-                    expect(result.body.role).to.equal('admin');
+                    expect(result.statusCode).to.equal(400);
+                    expect(result.body).to.have.property('error');
+                    expect(result.body.error).to.equal('Missing user data')
                     done();
                 });
         });
 
         it("Should fail with missing username or password", (done) => {
-            chai.request(server).post('/api/v1/auth')
-                .send({ username: '', password: 'admin' })
+            chai.request(server).post('/api/v1/users')
+                .send({ newUser: { username: '', password: 'jibberish' } })
                 .end((err, result) => {
                     if (err) done(err);
-                    expect(result.statusCode).to.equal(401);
+                    expect(result.statusCode).to.equal(500);
                     expect(result.body).to.have.property('error');
                     expect(result.body.error).to.equal('Username or password is missing')
                     done();
                 });
         });
 
-        it("Should fail with wrong username or password", (done) => {
-            chai.request(server).post('/api/v1/auth')
-                .send({ username: 'jibberish', password: 'jibberish' })
+        it("Should fail if user already exists", (done) => {
+            chai.request(server).post('/api/v1/users')
+                .send({ newUser: { username: 'test', password: 'testad' } })
                 .end((err, result) => {
                     if (err) done(err);
-                    expect(result.statusCode).to.equal(401);
+                    expect(result.statusCode).to.equal(500);
                     expect(result.body).to.have.property('error');
-                    expect(result.body.error).to.equal('Wrong username or password')
+                    expect(result.body.error).to.equal('Username already exists')
                     done();
                 });
         });
