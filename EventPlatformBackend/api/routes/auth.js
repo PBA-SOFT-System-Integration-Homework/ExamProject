@@ -11,5 +11,4 @@ authRouter.post('/', async function (req, res, next) {
     return res.status(200).json(result);
 });
 
-
 module.exports = authRouter;
