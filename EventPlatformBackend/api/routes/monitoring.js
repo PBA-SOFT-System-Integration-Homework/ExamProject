@@ -10,8 +10,4 @@ monitoringRouter.get('/metrics', async function (req, res, next) {
     res.end(register.metrics());
 });
 
-monitoringRouter.get('/', async function (req, res, next) {
-    return res.json({ hello: "NADA!" })
-});
-
 module.exports = monitoringRouter;

@@ -18,13 +18,13 @@ describe("*** Events testing ***", function () {
             await pool.execute("CREATE TABLE events LIKE events_test");
             await pool.execute("INSERT INTO events SELECT * FROM events_test");
         } catch (err) {
-            console.log('ERROR',err);
+            console.log('ERROR', err);
         }
     })
 
     describe("Event API endpoint tests", () => {
 
-        it("GET /events all three events successfully", (done) => {
+        it("Should GET all three events successfully", (done) => {
             chai.request(server).get('/api/v1/events')
                 .end((err, result) => {
                     if (err) done(err);
@@ -39,14 +39,27 @@ describe("*** Events testing ***", function () {
                 });
         });
 
-        it("POST /events add event", (done) => {
+        it("Should POST to /events add event", (done) => {
             chai.request(server).post('/api/v1/events')
                 .set('Content-Type', 'application/json')
                 .send({ name: 'test', description: 'test', date: '01/01/1970', amountOfPeople: 100, location: 'test' })
                 .end((err, result) => {
-                    if (err) done('Error',err);
+                    if (err) done('Error', err);
                     expect(result.statusCode).to.equal(201);
-                    expect(result.body).to.have.property('succes')
+                    expect(result.body).to.have.property('success');
+                    done();
+                });
+        });
+
+        it("Should fail on not provided property", (done) => {
+            chai.request(server).post('/api/v1/events')
+                .set('Content-Type', 'application/json')
+                .send({ name: '', date: '01/01/1970', amountOfPeople: 100, location: 'test' })
+                .end((err, result) => {
+                    if (err) done('Error', err);
+                    expect(result.statusCode).to.equal(400);
+                    expect(result.body).to.have.property('error');
+                    expect(result.body.error).to.equal('A property is missing');
                     done();
                 });
         });
