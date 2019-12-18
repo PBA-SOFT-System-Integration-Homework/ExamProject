@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 
 
 const getCarsFromMiniproject = async () => {
-    let cars = await fetch(process.env.MOM_SERVICE_URL+"/car").then(res => {
+    let cars = await fetch('http://'+process.env.MOM_SERVICE_URL+"/car").then(res => {
         return res.json();
     });
     return cars;

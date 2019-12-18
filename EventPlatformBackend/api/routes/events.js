@@ -46,9 +46,9 @@ eventsRouter.post('/', async function (req, res, next) {
 //     res.json({ events: [{ name: 'Timmy' }] });
 // });
 
-/* DELETE events listing. */
-eventsRouter.delete('/:id', function (req, res, next) {
-    res.json({ events: [{ name: 'Timmy' }] });
-});
+// /* DELETE events listing. */
+// eventsRouter.delete('/:id', function (req, res, next) {
+//     res.json({ events: [{ name: 'Timmy' }] });
+// });
 
 module.exports = eventsRouter;

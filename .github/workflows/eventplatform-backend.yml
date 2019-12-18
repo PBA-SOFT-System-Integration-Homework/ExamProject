@@ -1,9 +1,9 @@
-name: EventManagerBackend
+name: EventPlatformBackend
 
 on:
   push:
     paths:
-      - "EventManagerBackend/**"
+      - "EventPlatformBackend/**"
 
 jobs:
   build:
@@ -18,9 +18,9 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            rm -rf EventManagerBackend
-            git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git EventManagerBackend
-            cd EventManagerBackend/EventManagerBackend
+            rm -rf EventPlatformBackend
+            git clone https://github.com/PBA-SOFT-System-Integration-Homework/ExamProject.git EventPlatformBackend
+            cd EventPlatformBackend/EventPlatformBackend
             docker build -t jeff/eventbackend .
             docker stop eventbackend
             docker rm --force eventbackend
