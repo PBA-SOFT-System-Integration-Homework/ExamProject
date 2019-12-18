@@ -1,6 +1,6 @@
 var amqp = require('amqplib/callback_api');
 
-URL = "amqp://167.172.98.125:5672"
+let URL = "amqp://167.172.98.125:5672"
 
 export function bookCar(booking) {
     const q = 'car_bookings';
