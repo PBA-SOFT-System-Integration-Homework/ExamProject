@@ -8,9 +8,7 @@ Assignment: [Link to PDF](https://github.com/datsoftlyngby/soft2019fall-si/blob/
 - Stanislav Novitski (cph-sn183@cphbusiness.dk)
 - Alexander Winther Hørsted-Andersen (cph-ah353@cphbusiness.dk)
 
-## How to run
+## Architectural Design [WIP]
 
-- npm i
-- npm start
-- Log in with "test"/"test" ( regular user ) / "admin"/"bigsean" ( admin user )
+![overview.png](assets/drawio/overview.png)
 
