@@ -22,6 +22,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -33,7 +34,7 @@ import javax.ws.rs.core.MediaType;
 public class ApiResource {
 
     Gson gson = new Gson();
-    
+
     @Context
     private UriInfo context;
 
@@ -45,63 +46,50 @@ public class ApiResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllCars() throws RemoteException, NotBoundException, MalformedURLException {
+
+    public String getAllCars(
+            @QueryParam("seat") String seat,
+            @QueryParam("type") String type
+    ) throws RemoteException, NotBoundException, MalformedURLException {
 
         List<CarDetails> listOfCars = getListOfCars();
-        
-        return gson.toJson(listOfCars);
-    }
 
-    @GET
-    @Path("seats/{seat}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getCarsBySeat(@PathParam("seat") String seat) throws RemoteException, NotBoundException, MalformedURLException {
+        List<CarDetails> listOfCarsFiltered = new ArrayList<>();
 
-        List<CarDetails> listOfCars = getListOfCars();
-        List<CarDetails> listOfCarsWithCorrectSeat = new ArrayList<>();
+        //seat=null & type=null
+        if (seat == null && type == null) {
+            return gson.toJson(listOfCars);
+        }
+        //seat = null & type != null
+        if (seat == null) {
+            for (CarDetails car : listOfCars) {
 
-        for (CarDetails car : listOfCars) {
-            if (car.getCarType().getNumberOfSeats() >= Integer.parseInt(seat)) {
-                listOfCarsWithCorrectSeat.add(car);
+                if (car.getCarType().getName().equals(type.toUpperCase())) {
+                    listOfCarsFiltered.add(car);
+                }
             }
+            return gson.toJson(listOfCarsFiltered);
         }
 
-        return gson.toJson(listOfCarsWithCorrectSeat);
-    }
+        //seat != null & type = null
+        if (type == null) {
+            for (CarDetails car : listOfCars) {
 
-    @GET
-    @Path("type/{type}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getCarsByType(@PathParam("type") String type) throws RemoteException, NotBoundException, MalformedURLException {
-
-        List<CarDetails> listOfCars = getListOfCars();
-        List<CarDetails> listOfCarsOfCorrectType = new ArrayList<>();
-
-        for (CarDetails car : listOfCars) {
-            if (car.getCarType().getName().equals(type.toUpperCase())) {
-                listOfCarsOfCorrectType.add(car);
+                //seat != null & type != null
+                if (car.getCarType().getNumberOfSeats() >= Integer.parseInt(seat)) {
+                    listOfCarsFiltered.add(car);
+                }
             }
-        }
-        
-        return gson.toJson(listOfCarsOfCorrectType);
-    }
-
-    @GET
-    @Path("price/{price}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getCarsByPrice(@PathParam("price") String price) throws RemoteException, NotBoundException, MalformedURLException {
-
-        List<CarDetails> listOfCars = getListOfCars();
-
-        List<CarDetails> listOfCarBelowPrice = new ArrayList<>();
-
-        for (CarDetails car : listOfCars) {
-            if (car.getCarType().getPricePerDay() <= Integer.parseInt(price)) {
-                listOfCarBelowPrice.add(car);
-            }
+            return gson.toJson(listOfCarsFiltered);
         }
 
-        return gson.toJson(listOfCarBelowPrice);
+        //seat != null & type != null
+        for (CarDetails car : listOfCars) {
+            if (car.getCarType().getNumberOfSeats() >= Integer.parseInt(seat) && car.getCarType().getName().equals(type.toUpperCase())) {
+                listOfCarsFiltered.add(car);
+            }
+        }
+        return gson.toJson(listOfCarsFiltered);
     }
 
     private List<CarDetails> getListOfCars() throws RemoteException, NotBoundException, MalformedURLException {

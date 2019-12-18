@@ -16,14 +16,16 @@ public class ApiResourceTest {
     Gson gson = new Gson();
 
     /**
-     * Test of getAllCars method, of class ApiResource. Test that an not null &
-     * greater than 0 list of cars is returned
+     * Test of testGetAllCars method, of class ApiResource. Test that an not
+     * null & greater than 0 list of cars is returned
      */
     @Test
     public void testGetAllCars() throws Exception {
-        System.out.println("getAllCars");
+        System.out.println("testGetAllCars");
+        String seat = null;
+        String type = null;
         ApiResource instance = new ApiResource();
-        String cars = instance.getAllCars();
+        String cars = instance.getAllCars(seat, type);
         CarDetails[] json = gson.fromJson(cars, CarDetails[].class);
         List<CarDetails> listOfCars = Arrays.asList(json);
         assertNotNull(listOfCars);
@@ -31,34 +33,35 @@ public class ApiResourceTest {
     }
 
     /**
-     * Test of getCarsBySeat method, of class ApiResource. Test that all found
-     * cars have 2 or more seats when searching for 2 seat
+     * Test of testGetAllCars method, of class ApiResource. Test that all found
+     * cars have 2 or more seats when searching for 2 seat and no type
      */
     @Test
     public void testGetCarsBySeat2() throws Exception {
-        System.out.println("getCarsBySeat");
-        int minNumberOfSeat = 2;
+        System.out.println("testGetCarsBySeat2");
+        String seat = "2";
+        String type = "null";
         ApiResource instance = new ApiResource();
-        String cars = instance.getCarsBySeat(minNumberOfSeat + "");
-
+        String cars = instance.getAllCars(seat, type);
         CarDetails[] json = gson.fromJson(cars, CarDetails[].class);
         List<CarDetails> listOfCars = Arrays.asList(json);
 
         for (CarDetails car : listOfCars) {
-            assertNotEquals(minNumberOfSeat - 1, car.getCarType().getNumberOfSeats());
+            assertNotEquals(Integer.parseInt(seat) - 1, car.getCarType().getNumberOfSeats());
         }
     }
 
     /**
-     * Test of getCarsByType method, of class ApiResource. Test that all found
-     * cars have the name/make of A
+     * Test of testGetAllCars method, of class ApiResource. Test that all found
+     * cars have the name/make of A and no seat no given
      */
     @Test
     public void testGetCarsByTypeA() throws Exception {
-        System.out.println("getCarsByType");
+        System.out.println("testGetCarsByTypeA");
+        String seat = null;
         String type = "A";
         ApiResource instance = new ApiResource();
-        String cars = instance.getCarsByType(type);
+        String cars = instance.getAllCars(seat, type);
         CarDetails[] json = gson.fromJson(cars, CarDetails[].class);
         List<CarDetails> listOfCars = Arrays.asList(json);
 
@@ -68,19 +71,22 @@ public class ApiResourceTest {
     }
 
     /**
-     * Test of getCarsByPrice method, of class ApiResource.
+     * Test of testGetAllCars method, of class ApiResource. Test that all found
+     * cars have the name/make of A and 2 seats
      */
     @Test
-    public void testGetCarsByPrice450() throws Exception {
-        System.out.println("getCarsByPrice");
-        String price = "450";
+    public void testGetCarsBySeat2AndTypeA() throws Exception {
+        System.out.println("testGetCarsBySeat2AndTypeA");
+        String seat = "2";
+        String type = "A";
         ApiResource instance = new ApiResource();
-        String cars = instance.getCarsByPrice(price);
+        String cars = instance.getAllCars("2", "a");
         CarDetails[] json = gson.fromJson(cars, CarDetails[].class);
         List<CarDetails> listOfCars = Arrays.asList(json);
 
         for (CarDetails car : listOfCars) {
-            assertTrue(Double.parseDouble(price) > car.getCarType().getPricePerDay());
+            assertEquals(type, car.getCarType().getName());
+            assertNotSame(Integer.parseInt(seat) - 1, car.getCarType().getNumberOfSeats());
         }
     }
 
