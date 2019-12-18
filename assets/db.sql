@@ -49,9 +49,9 @@ INSERT INTO users(username, password, role) VALUES('rasmus', '$2b$10$d58hnch0HBh
 INSERT INTO users(username, password, role) VALUES('thera', '$2b$10$pfpUKaK3CeZTLXSi7A0z3uHeXepXg6bRkrzJ16nAmQyTSGHre92S.', 'user');
 
 # EVENTS
-INSERT INTO events(name, description, amount_of_people) VALUES('Christmas Party', 'Come enjoy yourself at this amazing event...', 100);
-INSERT INTO events(name, description, amount_of_people) VALUES('Pool Party', 'Pool, drinks, fun - can you really ask for more?...', 75);
-INSERT INTO events(name, description, amount_of_people) VALUES('Obligatory Meeting', 'Come enjoy yourself at this amazing event...', 100);
+INSERT INTO events(name, description, date, amount_of_people, location) VALUES('Christmas Party', 'Come enjoy yourself at this amazing event...', '22/12/2019', 100, 'Copenhagen');
+INSERT INTO events(name, description, date, amount_of_people, location) VALUES('Pool Party', 'Pool, drinks, fun - can you really ask for more?...', '23/12/2019', 75, 'Copenhagen');
+INSERT INTO events(name, description, date, amount_of_people, location) VALUES('Obligatory Meeting', 'Come enjoy yourself at this amazing event...', '24/12/2019',100, 'Copenhagen');
 
 # CARS
 
