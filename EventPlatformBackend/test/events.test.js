@@ -45,7 +45,8 @@ describe("*** Events testing ***", function () {
                 .send({ name: 'test', description: 'test', date: '01/01/1970', amountOfPeople: 100, location: 'test' })
                 .end((err, result) => {
                     if (err) done('Error',err);
-                    expect(result.statusCode).to.equal(200);
+                    expect(result.statusCode).to.equal(201);
+                    expect(result.body).to.have.property('succes')
                     done();
                 });
         });

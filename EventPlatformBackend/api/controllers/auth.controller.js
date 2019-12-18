@@ -14,12 +14,11 @@ const login = async (username, password) => {
         if (result.error) throw Error(result.error);
         // Check password
         const match = await bcrypt.compare(password, result.password);
-        console.log(match)
         if (match) {
             return { username: result.username, role: result.role, id: result.user_id };
         } else {
             console.error('Bcrypt fail');
-            throw Error('Wrong username or password1');
+            throw Error('Wrong username or password');
         }
     } catch (err) {
         console.log(err);

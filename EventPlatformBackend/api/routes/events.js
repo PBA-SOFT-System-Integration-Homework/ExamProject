@@ -18,6 +18,7 @@ eventsRouter.get('/:id', function (req, res, next) {
     res.json({ events: [{ name: 'Timmy' }] });
 });
 
+
 /* POST event. */
 eventsRouter.post('/', async function (req, res, next) {
     const { name, description, date, amountOfPeople, location } = req.body
@@ -36,7 +37,7 @@ eventsRouter.post('/', async function (req, res, next) {
         if (resp.error) {
             return res.status(500).json({ error: resp.error })
         } else {
-            return res.status(200).json({ succes: resp })
+            return res.status(201).json({ succes: resp })
         }
     }
 });

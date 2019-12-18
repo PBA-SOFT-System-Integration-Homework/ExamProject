@@ -15,7 +15,7 @@ const bookCars = async (cars, eventId) => {
     try {
         for (let idx in cars) {
             const { make, year, number_of_seats, car_type_name } = cars[idx]
-            console.log([make, year, number_of_seats, 0, car_type_name, eventId])
+            // console.log([make, year, number_of_seats, 0, car_type_name, eventId])
             const result = await conn.execute('INSERT INTO cars (make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES (?,?,?,?,?,?)',
                                                                             [make, year, number_of_seats, 0, car_type_name, eventId]);
         }
