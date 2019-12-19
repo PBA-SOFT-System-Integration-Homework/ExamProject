@@ -45,6 +45,3 @@ jobs:
 
     - name: Verify deployment
       run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig rollout status deployment/event-platform-backend-kub
-    
-    - name: NodePort
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig expose deployment event-platform-backend-kub --type=NodePort --name=event-platform-backend-kub-service

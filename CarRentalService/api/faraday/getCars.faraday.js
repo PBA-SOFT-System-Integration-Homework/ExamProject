@@ -1,7 +1,8 @@
 const fetch = require('node-fetch')
 
 async function getCarsFaraday(type, numberOfSeats) {
-    let URL = "http://167.172.98.125:4002/Faraday_API/api/cars"
+    // let URL = "http://167.172.98.125:4002/Faraday_API/api/cars
+    let URL = "http://faraday-api-kub-service:8080/Faraday_API/api/cars"
     if (type && numberOfSeats)
         URL += `?type=${type}&seat${numberOfSeats}`;
     else if (type)

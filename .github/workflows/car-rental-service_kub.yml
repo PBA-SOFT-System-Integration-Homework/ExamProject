@@ -45,6 +45,3 @@ jobs:
 
     - name: Verify deployment
       run: kubectl --kubeconfig=$GITHUB_WORKSPACE/CarRentalService/.kubeconfig rollout status deployment/car-rental-service-kub
-    
-    - name: NodePort
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/CarRentalService/.kubeconfig expose deployment car-rental-service-kub --type=NodePort --name=car-rental-service-kub-service
