@@ -1,5 +1,5 @@
 import { makeOptions } from '../utils/helperMethods'
-const URL = "http://138.68.124.69:4000//api/v1/cars";
+const URL = "http://138.68.124.69:4000/api/v1/cars";
 
 class CarsFacade {
 

@@ -1,7 +1,7 @@
 import  { makeOptions } from '../utils/helperMethods'
 
-const URL_AUTH = "http://138.68.124.69:4000//api/v1/auth";
-const URL_USER = "http://138.68.124.69:4000//api/v1/users";
+const URL_AUTH = "http://138.68.124.69:4000/api/v1/auth";
+const URL_USER = "http://138.68.124.69:4000/api/v1/users";
 
 class UserFacade {
 
