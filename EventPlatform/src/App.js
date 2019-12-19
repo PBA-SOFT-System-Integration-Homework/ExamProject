@@ -70,6 +70,8 @@ class App extends React.Component {
       numberOfSeats: this.state.addEventCarNumberOfSeats
     }]
 
+    console.log(JSON.stringify(event))
+
 
     if (isNaN(event[0].amountOfPeople)) alert("Input for 'Amount of people' is not a valid number..")
     else if (isNaN(event[0].numberOfSeats)) alert("Input for 'Minimum number of seats for cars' is not a valid number..")
