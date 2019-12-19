@@ -3,10 +3,8 @@ import React from 'react';
 export default function Modal(props) {
 
     let list = props.cars.map((c, idx) => {
-        return <li key={idx}>{c.car_type_name}| seats: {c.amount_of_seats} | seats booked: {c.amount_of_seats_taken} <button id={c.car_id} onClick={props.handleBookCar}>book</button></li>
+        return <li key={idx}>{c.car_type_name}| seats: {c.amount_of_seats} | seats booked: {c.amount_of_seats_taken} | origin: {c.origin} <button id={c.car_id} onClick={props.handleBookCar}>book</button></li>
     })
-
-    console.log("ORIGIN: " + props.event.origin)
 
   return (
       <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

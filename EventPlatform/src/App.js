@@ -76,9 +76,10 @@ class App extends React.Component {
     else if (['A','B','C','D','E'].indexOf(event[0].carType) == -1) alert("carType has to be one of the follow (A, B, C, D, E)")
     else {
       let response = await EventFacade.addEvent(event[0]);
-  
+      console.log("response received..")
       if (response.error) alert(response.error)
       else {
+        console.log("updating state...")
         this.setState(prevState => {
           return {
             events: prevState.events.concat(event),
@@ -97,9 +98,7 @@ class App extends React.Component {
 
   handleEventClick = async (evt) => {
     let id = evt.target.id
-    console.log("ID OF EVENT: " + id)
     let event = this.state.events.find(e => e.event_id == id)
-    console.log(JSON.stringify(event))
     let cars = await CarsFacade.getCarsForEvent(id);
     if (cars.error) {
       alert(cars.error)
