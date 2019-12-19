@@ -2,7 +2,7 @@ var amqp = require('amqplib/callback_api');
 
 let URL = "amqp://167.172.98.125:5672"
 
-const bookCarsMOM = (bookings) => {
+const bookCarsMOM = (cars) => {
 
     const q = 'car_bookings';
 
@@ -15,7 +15,7 @@ const bookCarsMOM = (bookings) => {
             if (err1) console.log(err1);
             ch.assertQueue(q);
 
-            bookings.map(carToBook => {
+            cars.map(carToBook => {
                 const msg = JSON.stringify({ car: carToBook, name: 'HR', email: 'eventplatform@ep.com' });
                 console.log(carToBook);
                 ch.sendToQueue(q, Buffer.from(msg));

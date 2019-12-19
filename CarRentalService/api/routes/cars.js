@@ -20,7 +20,7 @@ carsRouter.post('/cars', async (req, res, next) => {
     if (!req.body.cars || req.body.cars.length > 0) return res.status(400).json({ error: 'No cars provided' })
     const { cars } = req.body;
     try {
-        bookCars(cars);
+        await bookCars(cars);
         return res.status(201).json({cars: cars});
     } catch (err) {
         console.log(err)
