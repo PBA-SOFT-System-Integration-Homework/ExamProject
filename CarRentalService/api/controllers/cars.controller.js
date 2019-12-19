@@ -6,7 +6,7 @@ const { getCarsFaraday } = require('../faraday/getCars.faraday')
 const bookCars = async (cars) => {
     const carsMOM = cars.filter(c => c.origin === 'mom');
     console.log('hello')
-    console.log(carsMOM);
+    console.log('MOM cars',carsMOM);
     // const carsFaraday = cars.filter(c => c.origin === 'faraday');
     try {
         bookCarsMOM(carsMOM);
