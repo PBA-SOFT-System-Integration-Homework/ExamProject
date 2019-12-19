@@ -8,7 +8,7 @@ const register = new Registry();
 // Probe every 5th second.
 collectDefaultMetrics({
     register,
-    prefix: 'eventmanager_backend_',
+    //prefix: 'eventmanager_backend_',
     timeout: 5000
 });
 
