@@ -65,7 +65,6 @@ INSERT INTO cars_test(make, year, amount_of_seats, amount_of_seats_taken, type, 
 INSERT INTO cars_test(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Fiat', 1994, 4, 0, 'B', 'faraday', 2);
 INSERT INTO cars_test(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Opel', 1992, 2, 0, 'A', 'mom', 2);
 
-
 # Event 2
 INSERT INTO cars_test(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Audi', 2004, 5, 0, 'A', 'faraday', 3);
 INSERT INTO cars_test(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Fiat', 1994, 4, 0, 'B', 'faraday', 3);
