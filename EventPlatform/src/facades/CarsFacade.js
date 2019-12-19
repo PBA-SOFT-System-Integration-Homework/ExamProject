@@ -1,5 +1,5 @@
 import { makeOptions } from '../utils/helperMethods'
-const URL = "http://167.172.98.125:4000/api/v1/cars";
+const URL = "http://event-platform-backend-kub-service:4000/api/v1/cars";
 
 class CarsFacade {
 

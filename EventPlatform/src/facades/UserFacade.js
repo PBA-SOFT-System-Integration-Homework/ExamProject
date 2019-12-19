@@ -1,7 +1,7 @@
 import  { makeOptions } from '../utils/helperMethods'
 
-const URL_AUTH = "http://167.172.98.125:4000/api/v1/auth";
-const URL_USER = "http://167.172.98.125:4000/api/v1/users";
+const URL_AUTH = "http://event-platform-backend-kub-service:4000/api/v1/auth";
+const URL_USER = "http://event-platform-backend-kub-service:4000/api/v1/users";
 
 class UserFacade {
 
