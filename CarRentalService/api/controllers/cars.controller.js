@@ -13,6 +13,7 @@ const bookCars = async (cars) => {
         console.log(err);
         return { error: 'An error occured while booking cars' }
     }
+    
 }
 
 const getCars = async (carTypeName, numberOfSeats) => {
