@@ -24,6 +24,7 @@ const getCars = async (carTypeName, numberOfSeats) => {
 
         let carsFaraday = await getCarsFromFaraday(carTypeName, numberOfSeats)
         let carsMom = await getCarsFromMom(carTypeName, numberOfSeats)
+        if (carsMom.length > 100) carsMom = carsMom.splice(0, 100);
 
         carsFaraday = carsFaraday.map(car => {
             car = car.carType
