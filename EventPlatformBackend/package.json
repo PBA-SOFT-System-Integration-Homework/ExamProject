@@ -1,5 +1,5 @@
 {
-  "name": "event-manager-backend",
+  "name": "event-manager-backend", 
   "version": "0.0.0",
   "private": true,
   "scripts": {
