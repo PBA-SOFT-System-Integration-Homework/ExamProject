@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS users_cars;
 DROP TABLE IF EXISTS cars;
 DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
 	user_id INT AUTO_INCREMENT  PRIMARY KEY NOT NULL, 
 	username VARCHAR(50) NOT NULL,
@@ -56,7 +57,7 @@ INSERT INTO events(name, description, date, amount_of_people, location) VALUES('
 
 # CARS
 
-# Event 0
+# Event 1
 INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 'faraday', 1);
 INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Fiat', 1994, 5, 0, 'B', 'faraday', 1);
 INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 1992, 5, 0, 'A', 'faraday', 1);
@@ -67,18 +68,18 @@ INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origi
 INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Ford', 2004, 5, 0, 'A', 'mom', 1);
 INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2010, 5, 0, 'B', 'faraday', 1);
 
-# Event 1
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 'faraday', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Tractor', 1999, 5, 0, 'B', 'mom', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 1993, 5, 0, 'A', 'mom', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Audi', 2007, 5, 0, 'B', 'mom', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Mercedes', 2006, 5, 0, 'A', 'mom', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('BMW', 2001, 5, 0, 'B', 'faraday', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Nissan', 2001, 5, 0, 'A', 'faraday', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Ford', 2002, 5, 0, 'A', 'faraday', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2011, 5, 0, 'B', 'faraday', 1);
-
 # Event 2
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 'faraday', 2);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Tractor', 1999, 5, 0, 'B', 'mom', 2);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 1993, 5, 0, 'A', 'mom', 2);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Audi', 2007, 5, 0, 'B', 'mom', 2);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Mercedes', 2006, 5, 0, 'A', 'mom', 2);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('BMW', 2001, 5, 0, 'B', 'faraday', 2);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Nissan', 2001, 5, 0, 'A', 'faraday', 2);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Ford', 2002, 5, 0, 'A', 'faraday', 2);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2011, 5, 0, 'B', 'faraday', 2);
+
+# Event 3
 INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Audi', 2004, 5, 0, 'A', 'faraday', 3);
 INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Fiat', 1994, 5, 0, 'B', 'mom', 3);
 INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Obel', 1990, 5, 0, 'A', 'mom', 3);
