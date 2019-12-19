@@ -31,7 +31,7 @@ jobs:
       run: docker push immassive3/frontend_kub
       
     - name: Update deployment file
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/frontend_kub:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/frontend_kub:'${TAG}'|' $GITHUB_WORKSPACE/EventPlatform/config/deployment.yml
 
     - name: Save DigitalOcean kubeconfig
       uses: digitalocean/action-doctl@master
