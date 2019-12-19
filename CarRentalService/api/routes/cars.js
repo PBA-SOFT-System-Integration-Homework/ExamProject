@@ -15,7 +15,7 @@ carsRouter.get('/cars', async function (req, res, next) {
 
 carsRouter.post('/cars', async (req, res, next) => {
     // return error if no cars provided
-    if (!req.body.cars || req.body.cars.isEmpty()) return res.status(400).json({ error: 'No cars provided' })
+    if (!req.body.cars || req.body.cars.length > 0) return res.status(400).json({ error: 'No cars provided' })
     const { cars } = req.body;
     try {
         bookCars(cars);
