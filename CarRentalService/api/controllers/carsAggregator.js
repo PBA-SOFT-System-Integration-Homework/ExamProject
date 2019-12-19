@@ -28,6 +28,8 @@ const getCars = async (carTypeName, numberOfSeats) => {
         carsFaraday = carsFaraday.map(car => {
             car = car.carType
             car["origin"] = "faraday";
+            car["number_of_seats"] = car.numberOfSeats // to name it the same as the mom cars
+            delete car.numberOfSeats
             return car;
         })
 
