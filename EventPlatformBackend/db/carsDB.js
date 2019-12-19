@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 
 
 const getCarsFromCarRentalService = async (carType, numberOfSeats) => {
-    let URL = `http://167.172.98.125:4006/api/v1/cars/type/${carType}/seat/${numberOfSeats}`
+    let URL = `http://167.172.98.125:4006/api/v1/cars?carType=${carType}&numberOfSeats=${numberOfSeats}`
     console.log(URL)
     let cars = await fetch(URL).then(res => {
         return res.json();

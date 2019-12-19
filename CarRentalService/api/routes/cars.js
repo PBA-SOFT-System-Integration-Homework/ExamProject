@@ -4,8 +4,8 @@ const carsRouter = express.Router();
 const { getCars } = require('../controllers/carsAggregator');
 
 /* GET cars by event id */
-carsRouter.get('/cars/type/:carTypeName/seat/:numberOfSeats', async function (req, res, next) {
-    let { carTypeName, numberOfSeats } = req.params
+carsRouter.get('/cars', async function (req, res, next) {
+    let { carTypeName, numberOfSeats } = req.query
     if (carTypeName == "null") carTypeName = undefined
     if (numberOfSeats == "null") numberOfSeats = undefined
     const result = await getCars(carTypeName, numberOfSeats);
