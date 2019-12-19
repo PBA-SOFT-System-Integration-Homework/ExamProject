@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-kub
+spec:
+  type: ClusterIP
+  ports:
+  - port: 4001
+    targetPort: 4001
+  selector:
+    app: frontend-kub
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
