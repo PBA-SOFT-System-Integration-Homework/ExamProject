@@ -4,9 +4,9 @@ ARG MAVEN_REPO_USER
 ARG MAVEN_REPO_PASS
 ARG MAVEN_REPO_URL
 
-ENV MAVEN_REPO_USER=$MAVEN_REPO_USER
-ENV MAVEN_REPO_PASS=$MAVEN_REPO_PASS
-ENV MAVEN_REPO_URL=$MAVEN_REPO_URL
+ENV MAVEN_REPO_USER=${{ secrets.MAVEN_REPO_USER }}
+ENV MAVEN_REPO_PASS=${{ secrets.MAVEN_REPO_PASS }}
+ENV MAVEN_REPO_URL=${{ secrets.MAVEN_REPO_URL }}
 
 COPY . /tmp/
 WORKDIR /tmp
@@ -20,7 +20,6 @@ RUN apt-get update && apt-get install -y \
 && mkdir -p /usr/local/tomcat/conf
 
 EXPOSE 8080
-
 
 # Copy configurations (Tomcat users, Manager app)
 COPY tomcat-users.xml /usr/local/tomcat/conf/
