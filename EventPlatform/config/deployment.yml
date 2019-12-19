@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend_kub
+  name: frontend-kub
 spec:
   selector:
     matchLabels:
-      app: frontend_kub
+      app: frontend-kub
   replicas: 1
   strategy:
     rollingUpdate:
@@ -15,10 +15,10 @@ spec:
   template:
     metadata:
       labels:
-        app: frontend_kub
+        app: frontend-kub
     spec:
       containers:
-      - name: frontend_kub
+      - name: frontend-kub
         image: <IMAGE>
         ports:
         - containerPort: 4001

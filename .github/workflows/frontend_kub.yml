@@ -1,4 +1,4 @@
-name: frontend_kub
+name: frontend-kub
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
       run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
 
     - name: Build container image
-      run: docker build -t immassive3/frontend_kub:$(echo $GITHUB_SHA | head -c7) ./EventPlatform
+      run: docker build -t immassive3/frontend-kub:$(echo $GITHUB_SHA | head -c7) ./EventPlatform
 
     - name: Docker Login
       env:
@@ -28,10 +28,10 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       
     - name: Push image to Docker Hub
-      run: docker push immassive3/frontend_kub
+      run: docker push immassive3/frontend-kub
       
     - name: Update deployment file
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/frontend_kub:'${TAG}'|' $GITHUB_WORKSPACE/EventPlatform/config/deployment.yml
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/frontend-kub:'${TAG}'|' $GITHUB_WORKSPACE/EventPlatform/config/deployment.yml
 
     - name: Save DigitalOcean kubeconfig
       uses: digitalocean/action-doctl@master
@@ -44,4 +44,4 @@ jobs:
       run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatform/.kubeconfig apply -f $GITHUB_WORKSPACE/EventPlatform/config/deployment.yml
 
     - name: Verify deployment
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatform/.kubeconfig rollout status deployment/frontend_kub
+      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatform/.kubeconfig rollout status deployment/frontend-kub
