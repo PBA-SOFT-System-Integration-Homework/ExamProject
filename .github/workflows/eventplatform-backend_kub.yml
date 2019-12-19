@@ -45,3 +45,6 @@ jobs:
 
     - name: Verify deployment
       run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig rollout status deployment/event-platform-backend-kub
+    
+    - name: LoadBalancer
+      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig expose deployment event-platform-backend-kub --type=LoadBalancer --name=event-platform-backend-kub-loadbalancer
