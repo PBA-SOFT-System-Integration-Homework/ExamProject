@@ -1,6 +1,6 @@
 import  { makeOptions } from '../utils/helperMethods'
 
-const URL = "http://event-platform-backend-kub-service:4000/api/v1/events";
+const URL = "http://138.68.124.69:4000//api/v1/events";
 
 class EventFacade {
 
