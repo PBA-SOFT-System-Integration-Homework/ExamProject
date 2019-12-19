@@ -41,7 +41,7 @@ jobs:
         args: kubernetes cluster kubeconfig show k8s-1-16-2-do-1-fra1-1576767382681 > $GITHUB_WORKSPACE/EventPlatform/.kubeconfig
 
     - name: Deploy to DigitalOcean Kubernetes
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatform/.kubeconfig apply -f $GITHUB_WORKSPACE/config/deployment.yml
+      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatform/.kubeconfig apply -f $GITHUB_WORKSPACE/EventPlatform/config/deployment.yml
 
     - name: Verify deployment
       run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatform/.kubeconfig rollout status deployment/frontend_kub
