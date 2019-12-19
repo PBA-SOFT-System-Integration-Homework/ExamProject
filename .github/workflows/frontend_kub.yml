@@ -3,7 +3,7 @@ name: frontend_kub
 on:
   push:
     paths:
-      - "EventPlatform/**
+      - "EventPlatform/**"
 
 jobs:
   build:
