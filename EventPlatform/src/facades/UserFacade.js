@@ -7,10 +7,10 @@ class UserFacade {
 
     async login(credentials) {
         let data = makeOptions("POST", credentials);
-        let user = await fetch(URL_AUTH, data).then(res => {
+        let response = await fetch(URL_AUTH, data).then(res => {
             return res.json();
         });
-        return user;
+        return response;
     }
 
     async createUser(credentials) {

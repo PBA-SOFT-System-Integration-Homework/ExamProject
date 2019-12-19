@@ -12,7 +12,16 @@ usersRouter.post('/', async function (req, res, next) {
       return res.status(500).json({ error: result.error })
     }
     // return newly created user
-    return res.status(201).json(result);
+    return res.status(201).json({
+      user: result,
+      links: [
+        {
+          "rel": "self",
+          "method": "POST",
+          "href": "/users"
+        }
+      ]
+    });
 
   } else {
     return res.status(400).json({ error: 'Missing user data' });

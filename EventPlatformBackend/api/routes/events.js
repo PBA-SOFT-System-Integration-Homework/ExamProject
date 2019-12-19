@@ -9,7 +9,21 @@ eventsRouter.get('/', async function (req, res, next) {
     if (result.error) {
         return res.status(500).json({ error: result.error })
     }
-    return res.status(200).json(result);
+    return res.status(200).json({
+        events: result,
+        links: [
+            {
+                "rel": "self",
+                "method": "GET",
+                "href": "/events"
+            },
+            {
+                "rel": "create",
+                "method": "POST",
+                "href": "/cars"
+            }
+        ]
+    });
 });
 
 /* POST event. */
@@ -31,7 +45,22 @@ eventsRouter.post('/', async function (req, res, next) {
     if (result.error) {
         return res.status(500).json({ error: result.error })
     }
-    return res.status(201).json({ success: result, generatedEventId: result.generatedEventId })
+    return res.status(201).json({
+        success: result,
+        generatedEventId: result.generatedEventId,
+        links: [
+            {
+                "rel": "self",
+                "method": "POST",
+                "href": "/events"
+            },
+            {
+                "rel": "get",
+                "method": "GET",
+                "href": "/events"
+            }
+        ]
+    });
 });
 
 module.exports = eventsRouter;

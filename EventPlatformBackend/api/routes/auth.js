@@ -8,7 +8,15 @@ authRouter.post('/', async function (req, res, next) {
     const { username, password } = req.body;
     const result = await login(username, password);
     if (result.error) return res.status(401).json({ error: result.error });
-    return res.status(200).json(result);
+    return res.status(200).json({
+        user: result,
+        links: [
+            {
+                "rel": "self",
+                "method": "POST",
+                "href": "/auth"
+            }]
+    });
 });
 
 module.exports = authRouter;
