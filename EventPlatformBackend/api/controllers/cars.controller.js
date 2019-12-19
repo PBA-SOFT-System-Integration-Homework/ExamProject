@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 const carsDB = require('../../db/carsDB');
 const { shuffle } = require("../../utils/helperMethods")
 
@@ -28,7 +29,17 @@ const getCars = async (amountOfPeople, carType, numberOfSeats) => {
 
 const bookCars = async (cars, eventId) => {
     try {
-        return await carsDB.bookCars(cars, eventId);
+        const result = await carsDB.bookCars(cars, eventId);
+        await fetch('http://' + process.env.CAR_RENTAL_SERVICE_URL + '/api/v1/cars',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cars: cars })
+            }
+        )
+        return result;
     } catch (err) {
         console.log(err);
         return { error: err.message }

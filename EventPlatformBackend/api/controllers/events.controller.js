@@ -45,31 +45,7 @@ const getEvents = async () => {
     }
 }
 
-/**
- * 
- */
-const getEventByName = () => {
-
-}
-
-/**
- * 
- */
-const removeEvent = () => {
-
-}
-
-/**
- * 
- */
-const updateEvent = () => {
-
-}
-
 module.exports = {
     addEvent,
-    removeEvent,
-    updateEvent,
-    getEventByName,
     getEvents
 }
