@@ -20,8 +20,14 @@ app.disable('x-powered-by');
 // }).unless({path:['/api/v1/', '/api/v1/users', '/api/v1/auth']});
 // app.use('/api/v1/', jwtMW, indexRouter);
 
+//Set response to content json
+app.use(function (req, res, next) {
+    res.header("Content-Type", 'application/json');
+    next();
+});
 
 app.use('/api/v1/', indexRouter);
+
 
 
 // // Error handling for auth
