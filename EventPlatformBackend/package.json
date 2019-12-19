@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "node ./bin/www",
     "start": "node -r dotenv/config ./bin/www",
     "start-nodemon": "nodemon -r dotenv/config ./bin/www",
     "test": "NODE_ENV=test mocha --exit"

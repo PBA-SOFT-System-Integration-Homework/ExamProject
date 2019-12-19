@@ -3,9 +3,9 @@ const { shuffle } = require("../../utils/helperMethods")
 
 // ADD LOGIC HERE THEN CALL DB,
 
-const getCars = async (amountOfPeople) => {
+const getCars = async (amountOfPeople, carType, numberOfSeats) => {
     try {
-        let cars = await carsDB.getCarsFromMiniproject();
+        let cars = await carsDB.getCarsFromCarRentalService(carType, numberOfSeats);
 
         cars = shuffle(cars)
 

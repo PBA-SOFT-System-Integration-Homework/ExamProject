@@ -3,8 +3,10 @@ const pool = connection.getPool();
 const fetch = require('node-fetch')
 
 
-const getCarsFromMiniproject = async () => {
-    let cars = await fetch('http://'+process.env.MOM_SERVICE_URL+"/car").then(res => {
+const getCarsFromCarRentalService = async (carType, numberOfSeats) => {
+    let URL = `http://167.172.98.125:4006/api/v1/cars/type/${carType}/seat/${numberOfSeats}`
+    console.log(URL)
+    let cars = await fetch(URL).then(res => {
         return res.json();
     });
     return cars;
@@ -14,10 +16,10 @@ const bookCars = async (cars, eventId) => {
     const conn = await pool.getConnection();
     try {
         for (let idx in cars) {
-            const { make, year, number_of_seats, car_type_name } = cars[idx]
+            const { make, year, number_of_seats, car_type_name, origin } = cars[idx]
             // console.log([make, year, number_of_seats, 0, car_type_name, eventId])
-            const result = await conn.execute('INSERT INTO cars (make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES (?,?,?,?,?,?)',
-                                                                            [make, year, number_of_seats, 0, car_type_name, eventId]);
+            const result = await conn.execute('INSERT INTO cars (make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES (?,?,?,?,?,?)',
+                                                                            [make, year, number_of_seats, 0, car_type_name, origin, eventId]);
         }
     } catch (err) {
         console.log('Error', err);
@@ -58,7 +60,7 @@ const getCarsByEventId = async (eventId) => {
 
 
 module.exports = {
-    getCarsFromMiniproject,
+    getCarsFromCarRentalService,
     bookCars,
     bookCar,
     getCarsByEventId

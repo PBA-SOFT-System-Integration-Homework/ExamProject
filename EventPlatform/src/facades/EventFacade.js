@@ -13,10 +13,10 @@ class EventFacade {
 
     async addEvent(event) {
         let data = makeOptions("POST", event);
-        let events = await fetch(URL, data).then(res => {
+        let evt = await fetch(URL, data).then(res => {
             return res.json();
         });
-        return events;
+        return evt;
     }
 
   }

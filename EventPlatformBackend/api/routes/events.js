@@ -15,8 +15,7 @@ eventsRouter.get('/', async function (req, res, next) {
 
 /* POST event. */
 eventsRouter.post('/', async function (req, res, next) {
-
-    const { name, description, date, amountOfPeople, location } = req.body
+    const { name, description, date, amountOfPeople, location, carType, numberOfSeats } = req.body
     if (!name || name === ''
         || !date || date === ''
         || !amountOfPeople || amountOfPeople === ''
@@ -26,7 +25,10 @@ eventsRouter.post('/', async function (req, res, next) {
         return res.status(400).json({ error: errorMsg });
     }
 
-    const result = await addEvent(name, description, date, amountOfPeople, location);
+    if (!carType || carType == '') carType = 'null'
+    if (!numberOfSeats || numberOfSeats == '') numberOfSeats = 'null'
+
+    const result = await addEvent(name, description, date, amountOfPeople, location, carType, numberOfSeats);
     if (result.error) {
         return res.status(500).json({ error: result.error })
     }

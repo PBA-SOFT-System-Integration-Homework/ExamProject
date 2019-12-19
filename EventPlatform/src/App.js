@@ -27,6 +27,8 @@ class App extends React.Component {
       addEventDate: "",
       addEventAmoutOfPeople: "",
       addEventLocation: "",
+      addEventCarType: "",
+      addEventCarNumberOfSeats: "",
       events: [],
       cars: []
     }
@@ -63,11 +65,16 @@ class App extends React.Component {
       description: this.state.addEventDescription,
       date: this.state.addEventDate,
       amountOfPeople: this.state.addEventAmoutOfPeople,
-      location: this.state.addEventLocation
+      location: this.state.addEventLocation,
+      carType: this.state.addEventCarType,
+      numberOfSeats: this.state.addEventCarNumberOfSeats
     }]
 
+
     if (isNaN(event[0].amountOfPeople)) alert("Input for 'Amount of people' is not a valid number..")
-      
+    else if (isNaN(event[0].numberOfSeats)) alert("Input for 'Minimum number of seats for cars' is not a valid number..")
+    else if (event[0].numberOfSeats < 0 || event[0].numberOfSeats > 9) alert("For 'Minimum number of seats for cars', please choose a number between 0-9")
+    else if (['A','B','C','D','E'].indexOf(event[0].carType) == -1) alert("carType has to be one of the follow (A, B, C, D, E)")
     else {
       let response = await EventFacade.addEvent(event[0]);
   
@@ -80,7 +87,9 @@ class App extends React.Component {
             addEventDescription: "",
             addEventDate: "",
             addEventAmoutOfPeople: "",
-            addEventLocation: ""
+            addEventLocation: "",
+            addEventCarType: "",
+            addEventCarNumberOfSeats: ""
           };
         });
       }

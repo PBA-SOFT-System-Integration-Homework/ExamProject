@@ -74,6 +74,32 @@ export default function AddEvent(props) {
                     onChange={props.handleInputChange}
                     value={props.state.addEventLocation}
                 />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="carType"
+                    label="Type of car [A, B, C, D, E]"
+                    type="description"
+                    id="addEventCarType"
+                    autoComplete="Type of car"
+                    onChange={props.handleInputChange}
+                    value={props.state.addEventCarType}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="numberOfSeats"
+                    label="Minimum number of seats for cars"
+                    type="description"
+                    id="addEventCarNumberOfSeats"
+                    autoComplete="Minimum number of seats for cars (0-9)"
+                    onChange={props.handleInputChange}
+                    value={props.state.addEventCarNumberOfSeats}
+                />
                 <Button
                     fullWidth
                     variant="contained"

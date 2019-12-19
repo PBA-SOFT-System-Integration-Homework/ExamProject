@@ -29,6 +29,7 @@ CREATE TABLE cars (
     amount_of_seats INT NOT NULL,
     amount_of_seats_taken INT NOT NULL,
     type VARCHAR(1) NOT NULL,
+    origin VARCHAR(50),
     event_id INT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES events(event_id)
 );

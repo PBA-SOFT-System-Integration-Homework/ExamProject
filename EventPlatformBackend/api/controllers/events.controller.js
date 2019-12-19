@@ -12,7 +12,7 @@ const { getCars, bookCars } = require('../controllers/cars.controller');
  * @param {number} amountOfPeople 
  * @param {string} location 
  */
-const addEvent = async (name, description, date, amountOfPeople, location) => {
+const addEvent = async (name, description, date, amountOfPeople, location, carType, numberOfSeats) => {
     let result;
     try {
         result = await eventsDb.addEvent(name, description, date, amountOfPeople, location);
@@ -22,7 +22,7 @@ const addEvent = async (name, description, date, amountOfPeople, location) => {
     }
 
     // Get cars for event to book
-    const cars = await getCars(amountOfPeople);
+    const cars = await getCars(amountOfPeople, carType, numberOfSeats);
     if (cars.error) return { error: cars.error }
 
     // Book available cars
