@@ -16,10 +16,10 @@ const bookCars = async (cars, eventId) => {
     const conn = await pool.getConnection();
     try {
         for (let idx in cars) {
-            const { make, year, number_of_seats, car_type_name, origin } = cars[idx]
-            // console.log([make, year, number_of_seats, 0, car_type_name, eventId])
             if (!cars[idx].make) cars[idx]['make'] = null
             if (!cars[idx].year) cars[idx]['year'] = null
+
+            const { make, year, number_of_seats, car_type_name, origin } = cars[idx]
             const result = await conn.execute('INSERT INTO cars (make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES (?,?,?,?,?,?,?)',
                                                                             [make, year, number_of_seats, 0, car_type_name, origin, eventId]);
         }
