@@ -18,7 +18,7 @@ const bookCars = async (cars, eventId) => {
         for (let idx in cars) {
             const { make, year, number_of_seats, car_type_name, origin } = cars[idx]
             // console.log([make, year, number_of_seats, 0, car_type_name, eventId])
-            const result = await conn.execute('INSERT INTO cars (make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES (?,?,?,?,?,?)',
+            const result = await conn.execute('INSERT INTO cars (make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES (?,?,?,?,?,?,?)',
                                                                             [make, year, number_of_seats, 0, car_type_name, origin, eventId]);
         }
     } catch (err) {
@@ -56,8 +56,6 @@ const getCarsByEventId = async (eventId) => {
         conn.release();
     }
 }
-
-
 
 module.exports = {
     getCarsFromCarRentalService,
