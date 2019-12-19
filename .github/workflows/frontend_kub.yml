@@ -45,6 +45,3 @@ jobs:
 
     - name: Verify deployment
       run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatform/.kubeconfig rollout status deployment/frontend-kub
-
-    - name: Expose pod via NodePort
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatform/.kubeconfig expose deployment frontend-kub --type=LoadBalancer --name=frontend-kub-loadbalancer
