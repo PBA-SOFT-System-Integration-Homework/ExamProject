@@ -1,0 +1,50 @@
+name: car-rental-service-kub
+
+on:
+  push:
+    paths:
+      - "CarRentalService/**"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout master
+      uses: actions/checkout@master
+
+    - name: Update SHA
+      run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
+
+    - name: Build container image
+      run: docker build -t immassive3/car-rental-service-kub:$(echo $GITHUB_SHA | head -c7) ./CarRentalService
+
+    - name: Docker Login
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      
+    - name: Push image to Docker Hub
+      run: docker push immassive3/car-rental-service-kub
+      
+    - name: Update deployment file
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/car-rental-service-kub:'${TAG}'|' $GITHUB_WORKSPACE/CarRentalService/config/deployment.yml
+
+    - name: Save DigitalOcean kubeconfig
+      uses: digitalocean/action-doctl@master
+      env:
+        DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      with:
+        args: kubernetes cluster kubeconfig show k8s-1-16-2-do-1-fra1-1576767382681 > $GITHUB_WORKSPACE/CarRentalService/.kubeconfig
+
+    - name: Deploy to DigitalOcean Kubernetes
+      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/CarRentalService/.kubeconfig apply -f $GITHUB_WORKSPACE/CarRentalService/config/deployment.yml
+
+    - name: Verify deployment
+      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/CarRentalService/.kubeconfig rollout status deployment/car-rental-service-kub
+    
+    - name: NodePort
+      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/CarRentalService/.kubeconfig expose deployment car-rental-service-kub --type=NodePort --name=car-rental-service-kub-service
