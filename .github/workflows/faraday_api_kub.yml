@@ -51,4 +51,4 @@ jobs:
       run: kubectl --kubeconfig=$GITHUB_WORKSPACE/Faraday_API/.kubeconfig rollout status deployment/faraday-api-kub
 
     - name: NodePort
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig expose deployment faraday-api-kub --type=NodePort --name=faraday-api-kub-service
+      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/Faraday_API/.kubeconfig expose deployment faraday-api-kub --type=NodePort --name=faraday-api-kub-service
