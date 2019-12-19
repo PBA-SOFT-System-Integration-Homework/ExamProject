@@ -45,26 +45,26 @@ const getEvents = async () => {
     }
 }
 
-/**
- * 
- */
-const getEventByName = () => {
+// /**
+//  * 
+//  */
+// const getEventByName = () => {
 
-}
+// }
 
-/**
- * 
- */
-const removeEvent = () => {
+// /**
+//  * 
+//  */
+// const removeEvent = () => {
 
-}
+// }
 
-/**
- * 
- */
-const updateEvent = () => {
+// /**
+//  * 
+//  */
+// const updateEvent = () => {
 
-}
+// }
 
 module.exports = {
     addEvent,

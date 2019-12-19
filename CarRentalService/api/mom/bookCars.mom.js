@@ -2,7 +2,8 @@ var amqp = require('amqplib/callback_api');
 
 let URL = "amqp://167.172.98.125:5672"
 
-export function bookCar(booking) {
+export function bookCarsMOM(bookings) {
+
     const q = 'car_bookings';
 
     amqp.connect(URL, function (err, conn) {
@@ -13,8 +14,11 @@ export function bookCar(booking) {
         function on_open(err1, ch) {
             if (err1) console.log(err1);
             ch.assertQueue(q);
-            let msg = JSON.stringify(booking);
-            ch.sendToQueue(q, Buffer.from(msg));
+
+            bookings.map(carToBook => {
+                const msg = JSON.stringify({car : carToBook, name: 'HR', email: 'eventplatform@ep.com'});
+                ch.sendToQueue(q, Buffer.from(msg));
+            })
         }
     });
 }
