@@ -15,7 +15,7 @@ eventsRouter.get('/', async function (req, res, next) {
 
 /* POST event. */
 eventsRouter.post('/', async function (req, res, next) {
-    const { name, description, date, amountOfPeople, location, carType, numberOfSeats } = req.body
+    let { name, description, date, amountOfPeople, location, carType, numberOfSeats } = req.body
     if (!name || name === ''
         || !date || date === ''
         || !amountOfPeople || amountOfPeople === ''
