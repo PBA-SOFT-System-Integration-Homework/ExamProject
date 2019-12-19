@@ -7,41 +7,49 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout master
+        uses: actions/checkout@master
 
-    - name: Checkout master
-      uses: actions/checkout@master
+      - name: Update SHA
+        run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
 
-    - name: Update SHA
-      run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
+      - name: Build container image
+        env:
+          NODE_ENV: ${{secrets.NODE_ENV}}
+          BACKEND_PORT: ${{secrets.BACKEND_PORT}}
+          DB_HOST: ${{secrets.DB_HOST}}
+          DB_USERNAME: ${{secrets.DB_USERNAME}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+          DB_NAME: ${{secrets.DB_NAME}}
+          MOM_SERVICE_URL: ${{secrets.MOM_SERVICE_URL}}
+          CAR_RENTAL_SERVICE_URL: ${{secrets.CAR_RENTAL_SERVICE_URL}}
 
-    - name: Build container image
-      run: docker build -t immassive3/event-platform-backend-kub:$(echo $GITHUB_SHA | head -c7) ./EventPlatformBackend
-
-    - name: Docker Login
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        run: docker build --build-arg NODE_ENV=${NODE_ENV} --build-arg BACKEND_PORT=${BACKEND_PORT} --build-arg DB_HOST=${DB_HOST} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_NAME=${DB_NAME} --build-arg MOM_SERVICE_URL=${MOM_SERVICE_URL} --build-arg CAR_RENTAL_SERVICE_URL=${CAR_RENTAL_SERVICE_URL} -t immassive3/event-platform-backend-kub:$(echo $GITHUB_SHA | head -c7) ./EventPlatformBackend
       
-    - name: Push image to Docker Hub
-      run: docker push immassive3/event-platform-backend-kub
-      
-    - name: Update deployment file
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/event-platform-backend-kub:'${TAG}'|' $GITHUB_WORKSPACE/EventPlatformBackend/config/deployment.yml
+      - name: Docker Login
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-    - name: Save DigitalOcean kubeconfig
-      uses: digitalocean/action-doctl@master
-      env:
-        DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      with:
-        args: kubernetes cluster kubeconfig show k8s-1-16-2-do-1-fra1-1576767382681 > $GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig
+      - name: Push image to Docker Hub
+        run: docker push immassive3/event-platform-backend-kub
 
-    - name: Deploy to DigitalOcean Kubernetes
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig apply -f $GITHUB_WORKSPACE/EventPlatformBackend/config/deployment.yml
+      - name: Update deployment file
+        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/event-platform-backend-kub:'${TAG}'|' $GITHUB_WORKSPACE/EventPlatformBackend/config/deployment.yml
 
-    - name: Verify deployment
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig rollout status deployment/event-platform-backend-kub
+      - name: Save DigitalOcean kubeconfig
+        uses: digitalocean/action-doctl@master
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        with:
+          args: kubernetes cluster kubeconfig show k8s-1-16-2-do-1-fra1-1576767382681 > $GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig
+
+      - name: Deploy to DigitalOcean Kubernetes
+        run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig apply -f $GITHUB_WORKSPACE/EventPlatformBackend/config/deployment.yml
+
+      - name: Verify deployment
+        run: kubectl --kubeconfig=$GITHUB_WORKSPACE/EventPlatformBackend/.kubeconfig rollout status deployment/event-platform-backend-kub
