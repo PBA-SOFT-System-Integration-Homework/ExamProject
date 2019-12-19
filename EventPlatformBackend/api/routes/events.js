@@ -1,8 +1,7 @@
 const express = require('express');
 const eventsRouter = express.Router();
 
-const { addEvent, removeEvent, updateEvent, getEventByName, getEvents } = require('../controllers/events.controller');
-const { getCars, bookCars } = require('../controllers/cars.controller');
+const { addEvent, getEvents } = require('../controllers/events.controller');
 
 /* GET events listing. */
 eventsRouter.get('/', async function (req, res, next) {

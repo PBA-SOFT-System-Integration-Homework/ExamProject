@@ -29,7 +29,7 @@ CREATE TABLE cars (
     amount_of_seats INT NOT NULL,
     amount_of_seats_taken INT NOT NULL,
     type VARCHAR(1) NOT NULL,
-    origin VARCHAR(50),
+    origin VARCHAR(50) NOT NULL,
     event_id INT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES events(event_id)
 );
@@ -57,36 +57,36 @@ INSERT INTO events(name, description, date, amount_of_people, location) VALUES('
 # CARS
 
 # Event 0
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Fiat', 1994, 5, 0, 'B', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 1992, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Audi', 2007, 5, 0, 'B', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 2003, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('BMW', 2001, 5, 0, 'B', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Ford', 2004, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 2010, 5, 0, 'B', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 'faraday', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Fiat', 1994, 5, 0, 'B', 'faraday', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 1992, 5, 0, 'A', 'faraday', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Audi', 2007, 5, 0, 'B', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2003, 5, 0, 'A', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('BMW', 2001, 5, 0, 'B', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Ford', 2004, 5, 0, 'A', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2010, 5, 0, 'B', 'faraday', 1);
 
 # Event 1
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Tractor', 1999, 5, 0, 'B', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 1993, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Audi', 2007, 5, 0, 'B', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Mercedes', 2006, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('BMW', 2001, 5, 0, 'B', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Nissan', 2001, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Ford', 2002, 5, 0, 'A', 1);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 2011, 5, 0, 'B', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 'faraday', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Tractor', 1999, 5, 0, 'B', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 1993, 5, 0, 'A', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Audi', 2007, 5, 0, 'B', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Mercedes', 2006, 5, 0, 'A', 'mom', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('BMW', 2001, 5, 0, 'B', 'faraday', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Nissan', 2001, 5, 0, 'A', 'faraday', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Ford', 2002, 5, 0, 'A', 'faraday', 1);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2011, 5, 0, 'B', 'faraday', 1);
 
 # Event 2
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Audi', 2004, 5, 0, 'A', 3);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Fiat', 1994, 5, 0, 'B', 3);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Obel', 1990, 5, 0, 'A', 3);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Audi', 2007, 5, 0, 'B', 3);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 3);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Ford', 2001, 5, 0, 'B', 3);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Volswagen', 2012, 5, 0, 'A', 3);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Ford', 2000, 5, 0, 'A', 3);
-INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, event_id) VALUES('Porsche', 2011, 5, 0, 'B', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Audi', 2004, 5, 0, 'A', 'faraday', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Fiat', 1994, 5, 0, 'B', 'mom', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Obel', 1990, 5, 0, 'A', 'mom', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Audi', 2007, 5, 0, 'B', 'mom', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Peagueot', 2004, 5, 0, 'A', 'faraday', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Ford', 2001, 5, 0, 'B', 'mom', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Volswagen', 2012, 5, 0, 'A', 'mom', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Ford', 2000, 5, 0, 'A', 'faraday', 3);
+INSERT INTO cars(make, year, amount_of_seats, amount_of_seats_taken, type, origin, event_id) VALUES('Porsche', 2011, 5, 0, 'B', 'faraday', 3);
 
 
