@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: frontend_kub
 spec:
+  selector:
+    matchLabels:
+      app: frontend_kub
   replicas: 1
   strategy:
     rollingUpdate:
