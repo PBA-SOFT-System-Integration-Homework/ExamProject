@@ -17,6 +17,7 @@ const bookCarsMOM = (bookings) => {
 
             bookings.map(carToBook => {
                 const msg = JSON.stringify({ car: carToBook, name: 'HR', email: 'eventplatform@ep.com' });
+                console.log(carToBook);
                 ch.sendToQueue(q, Buffer.from(msg));
             })
         }
