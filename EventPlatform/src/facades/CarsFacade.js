@@ -7,7 +7,6 @@ class CarsFacade {
         let cars = await fetch(URL + `/${event_id}`).then(res => {
             return res.json();
         });
-        console.log(JSON.stringify(cars))
         return cars;
     }
 

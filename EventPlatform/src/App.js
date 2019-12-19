@@ -70,9 +70,6 @@ class App extends React.Component {
       numberOfSeats: this.state.addEventCarNumberOfSeats
     }]
 
-    console.log(JSON.stringify(event))
-
-
     if (isNaN(event[0].amountOfPeople)) alert("Input for 'Amount of people' is not a valid number..")
     else if (isNaN(event[0].numberOfSeats)) alert("Input for 'Minimum number of seats for cars' is not a valid number..")
     else if (event[0].numberOfSeats < 0 || event[0].numberOfSeats > 9) alert("For 'Minimum number of seats for cars', please choose a number between 0-9")
@@ -100,8 +97,9 @@ class App extends React.Component {
 
   handleEventClick = async (evt) => {
     let id = evt.target.id
+    console.log("ID OF EVENT: " + id)
     let event = this.state.events.find(e => e.event_id == id)
-
+    console.log(JSON.stringify(event))
     let cars = await CarsFacade.getCarsForEvent(id);
     if (cars.error) {
       alert(cars.error)
