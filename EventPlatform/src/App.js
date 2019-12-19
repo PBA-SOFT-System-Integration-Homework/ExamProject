@@ -78,6 +78,8 @@ class App extends React.Component {
       let response = await EventFacade.addEvent(event[0]);
       if (response.error) alert(response.error)
       else {
+        events[0]['amount_of_people'] = events.amountOfPeople
+        delete event[0].amountOfPeople
         delete event[0].carType 
         delete event[0].numberOfSeats
         this.setState(prevState => {
