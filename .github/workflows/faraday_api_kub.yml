@@ -22,7 +22,7 @@ jobs:
       env:
         MAVEN_REPO_USER: ${{ secrets.MAVEN_REPO_USER }}
         MAVEN_REPO_PASS: ${{ secrets.MAVEN_REPO_PASS }}
-        MAVEN_REPO_URL: ${{ MAVEN_REPO_URL }}
+        MAVEN_REPO_URL: ${{ secrets.MAVEN_REPO_URL }}
       run: docker build -t immassive3/faraday-api-kub:$(echo $GITHUB_SHA | head -c7) ./Faraday_API
 
     - name: Docker Login
