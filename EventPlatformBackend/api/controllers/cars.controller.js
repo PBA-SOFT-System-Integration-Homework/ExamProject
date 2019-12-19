@@ -11,11 +11,9 @@ const getCars = async (amountOfPeople, carType, numberOfSeats) => {
 
         let carsToBook = []
         let currentAvailableSeats = 0
-        console.log("AMOUNTOFPEOPLE: " + amountOfPeople)
         for (let i = 0; i < cars.length; i++) {
             if (currentAvailableSeats < amountOfPeople) {
-                console.log(currentAvailableSeats)
-                currentAvailableSeats += cars[i].number_of_seats;
+                currentAvailableSeats += Number(cars[i].number_of_seats);
                 carsToBook.push(cars[i]);
             }
             else
