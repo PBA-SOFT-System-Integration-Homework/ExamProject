@@ -30,7 +30,7 @@ const addEvent = async (name, description, date, amountOfPeople, location, carTy
     const resp = await bookCars(cars, eventId)
     if (resp.error) return { error: resp.error }
 
-    return { success: resp };
+    return { success: resp, generatedEventId: eventId };
 }
 
 /**

@@ -78,6 +78,7 @@ class App extends React.Component {
       let response = await EventFacade.addEvent(event[0]);
       if (response.error) alert(response.error)
       else {
+        event[0]['event_id'] = response.generatedEventId
         event[0]['amount_of_people'] = event[0].amountOfPeople
         delete event[0].amountOfPeople
         delete event[0].carType 

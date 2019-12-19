@@ -32,7 +32,7 @@ eventsRouter.post('/', async function (req, res, next) {
     if (result.error) {
         return res.status(500).json({ error: result.error })
     }
-    return res.status(201).json({ success: result })
+    return res.status(201).json({ success: result, generatedEventId: result.generatedEventId })
 });
 
 module.exports = eventsRouter;
