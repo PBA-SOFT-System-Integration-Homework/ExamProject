@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
-        env:
-          MAVEN_REPO_USER: ${{secrets.MAVEN_REPO_USER}}
-          MAVEN_REPO_PASS: ${{secrets.MAVEN_REPO_PASS}}
-          MAVEN_REPO_URL: ${{secrets.MAVEN_REPO_URL}}
         uses: actions/checkout@master
 
       - name: Set up JDK 1.8
@@ -23,6 +19,10 @@ jobs:
 
       - name: Run unit tests
         working-directory: ./Faraday_API
+        env:
+          MAVEN_REPO_USER: ${{secrets.MAVEN_REPO_USER}}
+          MAVEN_REPO_PASS: ${{secrets.MAVEN_REPO_PASS}}
+          MAVEN_REPO_URL: ${{secrets.MAVEN_REPO_URL}}
         run: mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end test
 
   build:
