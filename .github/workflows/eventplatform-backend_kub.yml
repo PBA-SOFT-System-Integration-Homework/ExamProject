@@ -6,16 +6,18 @@ on:
       - "EventPlatformBackend/**"
 
 jobs:
-
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout master
+        uses: actions/checkout@master
       
       - name: Run tests
         uses: actions/setup-node@v1
         with:
           node-version: '10.x'
+      - name: Run tests
+        working-directory: ./EventPlatformBackend
         env:
           NODE_ENV: test
           BACKEND_PORT: ${{secrets.BACKEND_PORT}}
@@ -25,8 +27,9 @@ jobs:
           DB_NAME: ${{secrets.DB_NAME}}
           MOM_SERVICE_URL: ${{secrets.MOM_SERVICE_URL}}
           CAR_RENTAL_SERVICE_URL: ${{secrets.CAR_RENTAL_SERVICE_URL}}
-      - run: npm install
-      - run: npm test
+
+        run: npm install
+        run: npm test
 
   build:
     needs: [test]
