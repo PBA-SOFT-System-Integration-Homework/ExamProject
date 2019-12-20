@@ -26,6 +26,7 @@ jobs:
         run: mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end test
 
   build:
+    needs: [test]
     runs-on: ubuntu-latest
 
     steps:
