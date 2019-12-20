@@ -28,8 +28,7 @@ jobs:
           MOM_SERVICE_URL: ${{secrets.MOM_SERVICE_URL}}
           CAR_RENTAL_SERVICE_URL: ${{secrets.CAR_RENTAL_SERVICE_URL}}
 
-        run: npm install
-        run: npm test
+        run: npm install && npm test
 
   build:
     needs: [test]
