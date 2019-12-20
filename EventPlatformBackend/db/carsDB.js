@@ -12,6 +12,7 @@ const getCarsFromCarRentalService = async (carType, numberOfSeats) => {
     return cars;
 }
 
+
 const bookCars = async (cars, eventId) => {
     const conn = await pool.getConnection();
     try {
