@@ -29,12 +29,12 @@ describe("*** Events tests ***", function () {
                 .end((err, result) => {
                     if (err) done(err);
                     expect(result.statusCode).to.equal(200);
-                    expect(result.body.length).to.equal(3);
-                    expect(result.body[0]).to.have.property('name');
-                    expect(result.body[0]).to.have.property('description');
-                    expect(result.body[0]).to.have.property('date');
-                    expect(result.body[0]).to.have.property('amount_of_people');
-                    expect(result.body[0]).to.have.property('location');
+                    expect(result.body.events.length).to.equal(3);
+                    expect(result.body.events[0]).to.have.property('name');
+                    expect(result.body.events[0]).to.have.property('description');
+                    expect(result.body.events[0]).to.have.property('date');
+                    expect(result.body.events[0]).to.have.property('amount_of_people');
+                    expect(result.body.events[0]).to.have.property('location');
                     done();
                 });
         });

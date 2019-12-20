@@ -19,8 +19,7 @@ jobs:
       - name: Run tests
         working-directory: ./EventPlatformBackend
         env:
-          NODE_ENV: test
-          BACKEND_PORT: ${{secrets.BACKEND_PORT}}
+          PORT: ${{secrets.BACKEND_PORT}}
           DB_HOST: ${{secrets.DB_HOST}}
           DB_USERNAME: ${{secrets.DB_USERNAME}}
           DB_PASSWORD: ${{secrets.DB_PASSWORD}}

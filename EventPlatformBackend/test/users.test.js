@@ -30,9 +30,9 @@ describe("*** Users tests ***", function () {
                 .end((err, result) => {
                     if (err) done(err);
                     expect(result.statusCode).to.equal(201);
-                    expect(result.body).to.have.property('username');
-                    expect(result.body).to.have.property('role');
-                    expect(result.body.role).to.equal('user');
+                    expect(result.body.user).to.have.property('username');
+                    expect(result.body.user).to.have.property('role');
+                    expect(result.body.user.role).to.equal('user');
                     done();
                 });
         });

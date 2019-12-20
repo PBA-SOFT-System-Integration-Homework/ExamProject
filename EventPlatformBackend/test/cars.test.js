@@ -28,11 +28,11 @@ describe("*** Cars tests ***", function () {
 
     describe("Cars API endpoint tests", () => {
         it("Should get three cars by eventId", (done) => {
-            chai.request(server).get('/api/v1/cars/1')
+            chai.request(server).get('/api/v1/cars/event/1')
                 .end((err, result) => {
                     if (err) done(err);
                     expect(result.statusCode).to.equal(200);
-                    expect(result.body.length).to.be.equal(3);
+                    expect(result.body.cars.length).to.be.equal(3);
                     done();
                 });
         });
