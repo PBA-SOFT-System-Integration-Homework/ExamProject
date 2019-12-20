@@ -6,46 +6,62 @@ on:
       - "Faraday_API/**"
 
 jobs:
-  build:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        env:
+          MAVEN_REPO_USER: ${{secrets.MAVEN_REPO_USER}}
+          MAVEN_REPO_PASS: ${{secrets.MAVEN_REPO_PASS}}
+          MAVEN_REPO_URL: ${{secrets.MAVEN_REPO_URL}}
+        uses: actions/checkout@master
 
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Run unit tests
+        run: mvn -s .m2/settings.xml --batch-mode --errors --fail-at-end test
+
+  build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout master
+        uses: actions/checkout@master
 
-    - name: Checkout master
-      uses: actions/checkout@master
+      - name: Update SHA
+        run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
 
-    - name: Update SHA
-      run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
+      - name: Build container image
+        env:
+          MAVEN_REPO_USER: ${{ secrets.MAVEN_REPO_USER }}
+          MAVEN_REPO_PASS: ${{ secrets.MAVEN_REPO_PASS }}
+          MAVEN_REPO_URL: ${{ secrets.MAVEN_REPO_URL }}
+        run: docker build --build-arg MAVEN_REPO_USER=${MAVEN_REPO_USER} --build-arg MAVEN_REPO_PASS=${MAVEN_REPO_PASS} --build-arg MAVEN_REPO_URL=${MAVEN_REPO_URL} -t immassive3/faraday-api-kub:$(echo $GITHUB_SHA | head -c7) ./Faraday_API
 
-    - name: Build container image
-      env:
-        MAVEN_REPO_USER: ${{ secrets.MAVEN_REPO_USER }}
-        MAVEN_REPO_PASS: ${{ secrets.MAVEN_REPO_PASS }}
-        MAVEN_REPO_URL: ${{ secrets.MAVEN_REPO_URL }}
-      run: docker build --build-arg MAVEN_REPO_USER=${MAVEN_REPO_USER} --build-arg MAVEN_REPO_PASS=${MAVEN_REPO_PASS} --build-arg MAVEN_REPO_URL=${MAVEN_REPO_URL} -t immassive3/faraday-api-kub:$(echo $GITHUB_SHA | head -c7) ./Faraday_API
+      - name: Docker Login
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-    - name: Docker Login
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      
-    - name: Push image to Docker Hub
-      run: docker push immassive3/faraday-api-kub
-      
-    - name: Update deployment file
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/faraday-api-kub:'${TAG}'|' $GITHUB_WORKSPACE/Faraday_API/config/deployment.yml
+      - name: Push image to Docker Hub
+        run: docker push immassive3/faraday-api-kub
 
-    - name: Save DigitalOcean kubeconfig
-      uses: digitalocean/action-doctl@master
-      env:
-        DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      with:
-        args: kubernetes cluster kubeconfig show k8s-1-16-2-do-1-fra1-1576767382681 > $GITHUB_WORKSPACE/Faraday_API/.kubeconfig
+      - name: Update deployment file
+        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|immassive3/faraday-api-kub:'${TAG}'|' $GITHUB_WORKSPACE/Faraday_API/config/deployment.yml
 
-    - name: Deploy to DigitalOcean Kubernetes
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/Faraday_API/.kubeconfig apply -f $GITHUB_WORKSPACE/Faraday_API/config/deployment.yml
+      - name: Save DigitalOcean kubeconfig
+        uses: digitalocean/action-doctl@master
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        with:
+          args: kubernetes cluster kubeconfig show k8s-1-16-2-do-1-fra1-1576767382681 > $GITHUB_WORKSPACE/Faraday_API/.kubeconfig
 
-    - name: Verify deployment
-      run: kubectl --kubeconfig=$GITHUB_WORKSPACE/Faraday_API/.kubeconfig rollout status deployment/faraday-api-kub
+      - name: Deploy to DigitalOcean Kubernetes
+        run: kubectl --kubeconfig=$GITHUB_WORKSPACE/Faraday_API/.kubeconfig apply -f $GITHUB_WORKSPACE/Faraday_API/config/deployment.yml
+
+      - name: Verify deployment
+        run: kubectl --kubeconfig=$GITHUB_WORKSPACE/Faraday_API/.kubeconfig rollout status deployment/faraday-api-kub
