@@ -8,7 +8,6 @@ const login = async (username, password) => {
     if (!username || !password || username === "" || password === "") {
         return { error: 'Username or password is missing' }
     }
-    
     try {
         const result = await loginAuth(username, password);
         // If an error occurs in db (they are not stacktraces but handled error messages)
