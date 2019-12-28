@@ -48,7 +48,6 @@ class App extends React.Component {
     if (response.error) {
       alert(response.error)
     } else {
-      console.log(response.user)
       let eventResp = await EventFacade.getEvents();
       if (eventResp.error) return alert('An error occured getting events')
       this.setState({
@@ -171,7 +170,6 @@ class App extends React.Component {
     } else {
       return (
         <div>
-          {JSON.stringify(this.state)}
           {this.state.role === "admin" ? (
             <div>
               <AddEvent
