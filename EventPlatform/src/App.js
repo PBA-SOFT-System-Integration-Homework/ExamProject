@@ -9,6 +9,7 @@ import Modal from './components/Modal'
 import UserFacade from './facades/UserFacade'
 import EventFacade from './facades/EventFacade'
 import CarsFacade from './facades/CarsFacade'
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 
 class App extends React.Component {
@@ -30,7 +31,8 @@ class App extends React.Component {
       addEventCarType: "",
       addEventCarNumberOfSeats: "",
       events: [],
-      cars: []
+      cars: [],
+      loadingSpinner: false
     }
   }
 
@@ -48,7 +50,6 @@ class App extends React.Component {
     if (response.error) {
       alert(response.error)
     } else {
-      console.log(response.user)
       let eventResp = await EventFacade.getEvents();
       if (eventResp.error) return alert('An error occured getting events')
       this.setState({
@@ -63,6 +64,10 @@ class App extends React.Component {
   }
 
   addEvent = async (evt) => {
+    this.setState({
+      loadingSpinner: true
+    });
+
     let event = [{
       name: this.state.addEventName,
       description: this.state.addEventDescription,
@@ -95,7 +100,8 @@ class App extends React.Component {
             addEventAmoutOfPeople: "",
             addEventLocation: "",
             addEventCarType: "",
-            addEventCarNumberOfSeats: ""
+            addEventCarNumberOfSeats: "",
+            loadingSpinner: false
           };
         });
       }
@@ -170,22 +176,24 @@ class App extends React.Component {
     } else {
       return (
         <div>
-          <Events
-            role={this.state.role}
+          {this.state.role === "admin" && (
+            <AddEvent
+              addEvent={this.addEvent}
+              handleInputChange={this.handleInputChange}
+              state={this.state}
+            />)}
+          {this.state.loadingSpinner && (
+            <div className='loading-spinner'>
+              <CircularProgress size={60} />
+            </div>
+          )}
+          <Events role={this.state.role}
             events={this.state.events}
             addEvent={this.addEvent}
             handleInputChange={this.handleInputChange}
             state={this.state}
             handleEventClick={this.handleEventClick}
           />
-          {this.state.role === "admin"
-            &&
-            <AddEvent
-              addEvent={this.addEvent}
-              handleInputChange={this.handleInputChange}
-              state={this.state}
-            />
-          }
           <Modal
             id={this.state.currentEventId}
             event={this.state.currentEvent}
