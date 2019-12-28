@@ -3,7 +3,7 @@ import React from 'react'
 import SignIn from './components/SignIn'
 import Signup from './components/SignUp'
 import Events from './components/Events'
-import users from './data/users'
+// import users from './data/users'
 import AddEvent from './components/AddEvent'
 import Modal from './components/Modal'
 import UserFacade from './facades/UserFacade'
@@ -35,7 +35,7 @@ class App extends React.Component {
   }
 
   handleInputChange = (event) => {
-    let type = event.target.id
+    let type = event.target.name
     let value = event.target.value
     this.setState({ [type]: value })
   }
@@ -76,7 +76,7 @@ class App extends React.Component {
     if (isNaN(event[0].amountOfPeople)) alert("Input for 'Amount of people' is not a valid number..")
     else if (isNaN(event[0].numberOfSeats)) alert("Input for 'Minimum number of seats for cars' is not a valid number..")
     else if (event[0].numberOfSeats < 0 || event[0].numberOfSeats > 9) alert("For 'Minimum number of seats for cars', please choose a number between 0-9")
-    else if (['A', 'B', 'C', 'D', 'E'].indexOf(event[0].carType) == -1) alert("carType has to be one of the follow (A, B, C, D, E)")
+    else if (['A', 'B', 'C', 'D', 'E'].indexOf(event[0].carType) === -1) alert("carType has to be one of the follow (A, B, C, D, E)")
     else {
       let response = await EventFacade.addEvent(event[0]);
       if (response.error) alert(response.error)
@@ -104,7 +104,7 @@ class App extends React.Component {
 
   handleEventClick = async (evt) => {
     let id = evt.target.id
-    let event = this.state.events.find(e => e.event_id == id)
+    let event = this.state.events.find(e => e.event_id === id)
     let result = await CarsFacade.getCarsForEvent(id);
     if (result.error) {
       alert(result.error)
@@ -142,7 +142,7 @@ class App extends React.Component {
     else {
       let cars = this.state.cars;
       cars = cars.map(car => {
-        if (car.car_id == carId)
+        if (car.car_id === carId)
           car.amount_of_seats_taken += 1;
         return car;
       })
@@ -164,33 +164,34 @@ class App extends React.Component {
             <hr />
             <Route exact path="/" render={() => <SignIn handleInputChange={this.handleInputChange} handleLogin={this.handleLogin} />} />
             <Route exact path="/signUp" render={() => <Signup handleInputChange={this.handleInputChange} handleCreateUser={this.handleCreateUser} />} />
-            {JSON.stringify(users)}
           </div>
         </Router>
       )
     } else {
       return (
         <div>
-          {JSON.stringify(this.state)}
-          {this.state.role === "admin" ? (
-            <div>
-              <AddEvent
-                addEvent={this.addEvent}
-                handleInputChange={this.handleInputChange}
-                state={this.state}
-              />
-            </div>
-          ) : (
-              ""
-            )}
-          <Events role={this.state.role}
+          <Events
+            role={this.state.role}
             events={this.state.events}
             addEvent={this.addEvent}
             handleInputChange={this.handleInputChange}
             state={this.state}
             handleEventClick={this.handleEventClick}
           />
-          <Modal id={this.state.currentEventId} event={this.state.currentEvent} cars={this.state.cars} handleBookCar={this.handleBookCar} />
+          {this.state.role === "admin"
+            &&
+            <AddEvent
+              addEvent={this.addEvent}
+              handleInputChange={this.handleInputChange}
+              state={this.state}
+            />
+          }
+          <Modal
+            id={this.state.currentEventId}
+            event={this.state.currentEvent}
+            cars={this.state.cars}
+            handleBookCar={this.handleBookCar}
+          />
         </div>
       )
     }

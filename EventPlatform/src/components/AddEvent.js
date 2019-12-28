@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { Button, Select, MenuItem, InputLabel, TextField } from '@material-ui/core';
 import useStyles from '../styles/Events'
 
 export default function AddEvent(props) {
@@ -16,7 +15,7 @@ export default function AddEvent(props) {
                     fullWidth
                     id="addEventName"
                     label="Name of event"
-                    name="name"
+                    name="addEventName"
                     autoComplete="name"
                     autoFocus
                     onChange={props.handleInputChange}
@@ -27,7 +26,7 @@ export default function AddEvent(props) {
                     margin="normal"
                     required
                     fullWidth
-                    name="description"
+                    name="addEventDescription"
                     label="Description"
                     type="description"
                     id="addEventDescription"
@@ -40,22 +39,25 @@ export default function AddEvent(props) {
                     margin="normal"
                     required
                     fullWidth
-                    name="date"
+                    name="addEventDate"
                     label="Date for event"
-                    type="description"
+                    type="date"
                     id="addEventDate"
                     autoComplete="date"
                     onChange={props.handleInputChange}
                     value={props.state.addEventDate}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
                 />
                 <TextField
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    name="amountOfPeople"
+                    name="addEventAmoutOfPeople"
                     label="Amount of people"
-                    type="description"
+                    type="number"
                     id="addEventAmoutOfPeople"
                     autoComplete="Amount of people"
                     onChange={props.handleInputChange}
@@ -66,7 +68,7 @@ export default function AddEvent(props) {
                     margin="normal"
                     required
                     fullWidth
-                    name="location"
+                    name="addEventLocation"
                     label="Location"
                     type="description"
                     id="addEventLocation"
@@ -74,39 +76,56 @@ export default function AddEvent(props) {
                     onChange={props.handleInputChange}
                     value={props.state.addEventLocation}
                 />
-                <TextField
+                <InputLabel id="typeLabel">(Optional) Choose a type</InputLabel>
+                <Select
+                    labelId="typeLabel"
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    name="carType"
-                    label="Type of car [A, B, C, D, E]"
-                    type="description"
+                    name="addEventCarType"
                     id="addEventCarType"
-                    autoComplete="Type of car"
                     onChange={props.handleInputChange}
+                    // onChange={e => console.log(e.target)}
                     value={props.state.addEventCarType}
-                />
-                <TextField
+                >
+                    <MenuItem value="">None</MenuItem>
+                    <MenuItem value="A">A</MenuItem>
+                    <MenuItem value="B">B</MenuItem>
+                    <MenuItem value="C">C</MenuItem>
+                    <MenuItem value="D">D</MenuItem>
+                    <MenuItem value="E">E</MenuItem>
+                </Select>
+                <InputLabel id="seatsLabel">(Optional) Minimum number of seats for cars (0-9)</InputLabel>
+                <Select
+                    labelId="seatsLabel"
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    name="numberOfSeats"
-                    label="Minimum number of seats for cars"
-                    type="description"
+                    name="addEventCarNumberOfSeats"
                     id="addEventCarNumberOfSeats"
-                    autoComplete="Minimum number of seats for cars (0-9)"
                     onChange={props.handleInputChange}
                     value={props.state.addEventCarNumberOfSeats}
-                />
+                >
+                    <MenuItem value="">None</MenuItem>
+                    <MenuItem value="1">1</MenuItem>
+                    <MenuItem value="2">2</MenuItem>
+                    <MenuItem value="3">3</MenuItem>
+                    <MenuItem value="4">4</MenuItem>
+                    <MenuItem value="5">5</MenuItem>
+                    <MenuItem value="6">6</MenuItem>
+                    <MenuItem value="7">7</MenuItem>
+                    <MenuItem value="8">8</MenuItem>
+                    <MenuItem value="9">9</MenuItem>
+                </Select>
                 <Button
                     fullWidth
                     variant="contained"
                     color="primary"
                     onClick={props.addEvent}
                 >
-                    Add Event
+                    Add new event
                     </Button>
             </form>
         </div>
