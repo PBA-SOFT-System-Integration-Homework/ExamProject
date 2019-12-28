@@ -9,6 +9,7 @@ import Modal from './components/Modal'
 import UserFacade from './facades/UserFacade'
 import EventFacade from './facades/EventFacade'
 import CarsFacade from './facades/CarsFacade'
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 
 class App extends React.Component {
@@ -30,7 +31,8 @@ class App extends React.Component {
       addEventCarType: "",
       addEventCarNumberOfSeats: "",
       events: [],
-      cars: []
+      cars: [],
+      loadingSpinner: false
     }
   }
 
@@ -62,6 +64,10 @@ class App extends React.Component {
   }
 
   addEvent = async (evt) => {
+    this.setState({
+      loadingSpinner: true
+    });
+
     let event = [{
       name: this.state.addEventName,
       description: this.state.addEventDescription,
@@ -94,7 +100,8 @@ class App extends React.Component {
             addEventAmoutOfPeople: "",
             addEventLocation: "",
             addEventCarType: "",
-            addEventCarNumberOfSeats: ""
+            addEventCarNumberOfSeats: "",
+            loadingSpinner: false
           };
         });
       }
@@ -171,12 +178,19 @@ class App extends React.Component {
       return (
         <div>
           {this.state.role === "admin" ? (
-            <div>
+            <div >
               <AddEvent
                 addEvent={this.addEvent}
                 handleInputChange={this.handleInputChange}
                 state={this.state}
               />
+            {this.state.loadingSpinner === true ? (
+              <div className='loading-spinner'>
+                <CircularProgress size={60}/>
+              </div>
+            ) : (
+              ""
+            )}
             </div>
           ) : (
               ""
