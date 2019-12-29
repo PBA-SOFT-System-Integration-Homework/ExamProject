@@ -6,7 +6,8 @@ export default function AddEvent(props) {
     const classes = useStyles();
 
     return (
-        <div>
+        <div className={classes.addEventContainer}>
+            <h1>Add event</h1>
             <form className={classes.form} >
                 <TextField
                     variant="outlined"
@@ -119,6 +120,7 @@ export default function AddEvent(props) {
                     <MenuItem value="8">8</MenuItem>
                     <MenuItem value="9">9</MenuItem>
                 </Select>
+                <hr></hr>
                 <Button
                     fullWidth
                     variant="contained"

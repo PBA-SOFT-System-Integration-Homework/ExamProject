@@ -37,6 +37,12 @@ const useStyles = makeStyles(theme => ({
     },
     topBar: {
         zIndex: '-1'
+    },
+    addEventContainer: {
+        width: '50%',
+        textAlign: 'center',
+        margin: 'auto',
+        marginBottom: '20px'
     }
 }));
 
