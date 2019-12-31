@@ -110,7 +110,7 @@ class App extends React.Component {
 
   handleEventClick = async (evt) => {
     let id = evt.target.id
-    let event = this.state.events.find(e => e.event_id === id)
+    let event = this.state.events.find(e => e.event_id === Number(id))
     let result = await CarsFacade.getCarsForEvent(id);
     if (result.error) {
       alert(result.error)
