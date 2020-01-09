@@ -32,11 +32,6 @@ indexRouter.get('/', (req, res, next) => res.json({
         {
             "rel": "create",
             "method": "POST",
-            "href": "/cars"
-        },
-        {
-            "rel": "create",
-            "method": "POST",
             "href": "/events"
         },
         {
