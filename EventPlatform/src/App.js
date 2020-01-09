@@ -148,7 +148,7 @@ class App extends React.Component {
     else {
       let cars = this.state.cars;
       cars = cars.map(car => {
-        if (car.car_id === carId)
+        if (car.car_id == carId)
           car.amount_of_seats_taken += 1;
         return car;
       })
