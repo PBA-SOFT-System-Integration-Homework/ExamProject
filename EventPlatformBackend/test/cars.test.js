@@ -26,6 +26,7 @@ describe("*** Cars tests ***", function () {
         }
     })
 
+    
     describe("Cars API endpoint tests", () => {
         it("Should get three cars by eventId", (done) => {
             chai.request(server).get('/api/v1/cars/event/1')
